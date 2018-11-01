@@ -15,6 +15,13 @@ This plugin version is compatible only with Redmine 3.4 and later.
 
 1. Download the .ZIP archive, extract files and copy the plugin directory to `#{REDMINE_ROOT}/plugins/redmine_wbs`.
 
+2. In the directory `#{REDMINE_ROOT}/plugins/redmine_pulls`, compile the assets:
+
+    ```bash
+    yarn install
+    yarn production
+    ```
+
 2. Restart Redmine.
 
 3. Login and enable the "WBS" module on projects you want to use it.
