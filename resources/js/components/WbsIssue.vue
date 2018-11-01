@@ -7,28 +7,32 @@
 <script>
   export default {
     name: 'WbsIssue',
-    data: function () {
+
+    data() {
       return {
         "issue": Object.assign({}, this.issueDefault),
       };
     },
+
     methods: {
-      update: function (patch) {
+      update(patch) {
         this.issue = Object.assign(this.issue, patch);
       },
-      reset: function () {
+      reset() {
         this.issue = Object.assign({}, this.issueDefault);
       },
     },
+
     props: {
       issueDefault: {
         type: Object,
         required: true
       }
     },
+
     watch: {
       issue: {
-        handler: function () {
+        handler() {
           //
         },
         deep: true
