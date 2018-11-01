@@ -1,0 +1,18 @@
+<h2><%= l(:label_wbs) %></h2>
+
+<%= form_tag(project_wbs_path(@project), :method => :get, :id => 'query_form') do %>
+  <%= render :partial => 'queries/query_form' %>
+<% end %>
+
+<% if @query.valid? %>
+  <%= render :partial => 'wbs/list', :locals => {:issues => @issues, :query => @query} %>
+<% end %>
+
+<%= call_hook(:view_wbs_index_bottom, { :issues => @issues, :project => @project, :query => @query }) %>
+
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag 'wbs', :plugin => 'redmine_wbs' %>
+  <%= javascript_include_tag 'wbs', :plugin => 'redmine_wbs' %>
+<% end %>
+
+<%= context_menu %>
