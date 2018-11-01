@@ -4,7 +4,7 @@
 }
 
 .issues--wbs tbody input {
-  color: #333;
+  color: inherit;
   border: transparent;
   background-color: transparent;
   font-family: Verdana, sans-serif;
