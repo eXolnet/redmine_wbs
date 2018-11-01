@@ -2,6 +2,7 @@ class WbsQuery < IssueQuery
   self.available_columns = [
     QueryColumn.new(:id, :caption => '#', :frozen => true),
     QueryColumn.new(:subject, :frozen => true),
+    QueryColumn.new(:estimated_hours, :frozen => true),
     QueryColumn.new(:tracker),
     QueryColumn.new(:status),
     QueryColumn.new(:priority),
@@ -9,7 +10,6 @@ class WbsQuery < IssueQuery
     QueryColumn.new(:fixed_version),
     QueryColumn.new(:start_date),
     QueryColumn.new(:due_date),
-    QueryColumn.new(:estimated_hours),
     #QueryColumn.new(:total_estimated_hours),
     QueryColumn.new(:done_ratio),
     QueryColumn.new(:description, :inline => false)
@@ -26,11 +26,10 @@ class WbsQuery < IssueQuery
   end
 
   def default_columns_names
-    @default_columns_names = [:category, :estimated_hours]
+    @default_columns_names = []
 
-    if User.current.allowed_to?(:view_time_entries, project, :global => true)
-      @default_columns_names << :spent_hours
-    end
+    @default_columns_names << :spent_hours if User.current.allowed_to?(:view_time_entries, project, :global => true)
+    @default_columns_names << :category
 
     @default_columns_names
   end
