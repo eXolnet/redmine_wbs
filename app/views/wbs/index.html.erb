@@ -12,7 +12,9 @@
 
 <% content_for :header_tags do %>
   <%= stylesheet_link_tag 'wbs', :plugin => 'redmine_wbs' %>
-  <%= javascript_include_tag 'wbs', :plugin => 'redmine_wbs' %>
 <% end %>
+
+<%= javascript_include_tag '//cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.min.js' %>
+<%= javascript_include_tag 'wbs', :plugin => 'redmine_wbs' %>
 
 <%= context_menu %>

@@ -1,7 +1,7 @@
 <% query_options = nil unless defined?(query_options) %>
 <% query_options ||= {} %>
 
-<%= form_tag({}, :data => {:cm_url => issues_context_menu_path}) do -%>
+<%= form_tag({}, :id => 'wbs-list', :data => {:cm_url => issues_context_menu_path}) do -%>
   <%= hidden_field_tag 'back_url', url_for(:params => request.query_parameters), :id => nil %>
 
   <div class="autoscroll">
@@ -20,7 +20,7 @@
 
       <tbody>
         <% grouped_issue_list(issues, query) do |issue, level| -%>
-          <tr id="issue-<%= issue.id %>" class="hascontextmenu <%= cycle('odd', 'even') %> <%= issue.css_classes %> <%= level > 0 ? "idnt idnt-#{level}" : nil %>">
+          <tr is="wbs-issue" id="issue-<%= issue.id %>" class="hascontextmenu <%= cycle('odd', 'even') %> <%= issue.css_classes %> <%= level > 0 ? "idnt idnt-#{level}" : nil %>">
             <td class="checkbox hide-when-print"><%= check_box_tag("ids[]", issue.id, false, :id => nil) %></td>
             <% query.inline_columns.each do |column| %>
               <%= content_tag('td', column_content(column, issue), :class => column.css_classes) %>
