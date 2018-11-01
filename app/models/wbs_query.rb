@@ -36,7 +36,7 @@ class WbsQuery < IssueQuery
   end
 
   def sort_clause
-    'IFNULL(issues.root_id, issues.id) ASC, issues.lft ASC'
+    'issues.root_id ASC, issues.lft ASC'
   end
 
   private
