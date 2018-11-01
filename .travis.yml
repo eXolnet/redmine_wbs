@@ -10,7 +10,7 @@ rvm:
 cache: bundler
 
 env:
-  - REDMINE_VER=3.4.6 DB=mysql CC_COVERAGE=true
+  - REDMINE_VER=3.4.6 DB=mysql
   - REDMINE_VER=3.4.6 DB=postgresql
 
 before_install:
