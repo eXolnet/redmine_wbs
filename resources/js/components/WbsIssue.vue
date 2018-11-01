@@ -5,6 +5,9 @@
 </template>
 
 <script>
+  import _debounce from 'lodash/debounce'
+  import axios from 'axios'
+
   export default {
     name: 'WbsIssue',
 
@@ -18,9 +21,18 @@
       update(patch) {
         this.issue = Object.assign(this.issue, patch);
       },
+
       reset() {
         this.issue = Object.assign({}, this.issueDefault);
       },
+
+      save() {
+        //
+      }
+    },
+
+    mounted() {
+      this.saving = _debounce(this.save, 1000);
     },
 
     props: {
@@ -33,7 +45,7 @@
     watch: {
       issue: {
         handler() {
-          //
+          this.saving();
         },
         deep: true
       }
