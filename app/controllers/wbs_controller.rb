@@ -6,9 +6,7 @@ class WbsController < ApplicationController
 
   rescue_from Query::StatementInvalid, :with => :query_statement_invalid
 
-  helper :issues
-  helper :queries
-  include QueriesHelper
+  include WbsHelper
 
   def index
     retrieve_query(WbsQuery)

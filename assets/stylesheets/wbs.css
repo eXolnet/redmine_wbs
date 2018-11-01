@@ -2,3 +2,14 @@
   background-color: #eee;
   font-weight: bold;
 }
+
+.issues--wbs tbody input {
+  color: #333;
+  border: transparent;
+  background-color: transparent;
+  font-family: Verdana, sans-serif;
+  font-size: 12px;
+  outline: none;
+  padding: 0;
+  width: 100%;
+}

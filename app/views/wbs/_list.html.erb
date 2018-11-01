@@ -46,7 +46,7 @@
         <tr>
           <td></td>
           <% query.inline_columns.each do |column| %>
-            <%= wbs_column_footer(query, column, query_options) %>
+            <%= column_footer(query, column, query_options) %>
           <% end %>
         </tr>
       </tfoot>
