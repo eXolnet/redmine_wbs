@@ -13,7 +13,7 @@
 
     data() {
       return {
-        "issue": Object.assign({}, this.issueDefault),
+        issue: Object.assign({}, this.issueDefault),
       };
     },
 
@@ -22,13 +22,21 @@
         this.issue = Object.assign(this.issue, patch);
       },
 
-      reset() {
-        this.issue = Object.assign({}, this.issueDefault);
-      },
-
       save() {
-        //
-      }
+        const { issue } = this;
+        const { id } = issue;
+
+        axios
+          .put(
+            `/issues/${id}.json`,
+            { issue }
+          )
+          .then(response => null) // TODO: Maybe a toast panel such as https://github.com/shakee93/vue-toasted.
+          .catch(error => {
+            // TODO: Handle and manage caught errors
+            console.log('Error', error);
+          });
+      },
     },
 
     mounted() {
