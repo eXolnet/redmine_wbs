@@ -86,9 +86,15 @@
           return;
         }
 
-        const targetIndex = _findLastIndex(this.issues, issue => {
-          return issue.parent_id === ofIssue.parent_id || issue.root_id === ofIssue.root_id && issue.level >= ofIssue.level;
-        });
+        let targetIndex = ofIssueIndex + 1;
+
+        for (let i = targetIndex; i < this.issues.length; i++) {
+          if (this.issues[i].level < ofIssue.level) {
+            break;
+          }
+
+          targetIndex = i;
+        }
 
         this.newIssue(targetIndex + 1, ofIssue.parent_id, ofIssue.level);
       },
