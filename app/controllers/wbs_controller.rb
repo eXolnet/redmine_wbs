@@ -3,19 +3,17 @@ class WbsController < ApplicationController
   menu_item :wbs
 
   before_action :find_optional_project
-
-  rescue_from Query::StatementInvalid, :with => :query_statement_invalid
-
-  include WbsHelper
+  accept_api_auth :index
 
   def index
-    retrieve_query(WbsQuery)
-
-    if @query.valid?
-      @issues = @query.issues
+    respond_to do |format|
+      format.html {
+        render :layout => !request.xhr?
+      }
+      format.api  {
+        @issues = @project.issues.visible.order("#{Issue.table_name}.root_id ASC, #{Issue.table_name}.lft ASC")
+      }
     end
-
-    render :layout => !request.xhr?
   rescue ActiveRecord::RecordNotFound
     render_404
   end

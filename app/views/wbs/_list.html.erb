@@ -5,53 +5,13 @@
   <%= hidden_field_tag 'back_url', url_for(:params => request.query_parameters), :id => nil %>
 
   <div class="autoscroll">
-    <table class="list issues issues--wbs odd-even <%= query.css_classes %>">
-      <thead>
-        <tr>
-          <th class="checkbox hide-when-print">
-            <%= check_box_tag 'check_all', '', false, :class => 'toggle-selection',
-                              :title => "#{l(:button_check_all)}/#{l(:button_uncheck_all)}" %>
-          </th>
-          <% query.inline_columns.each do |column| %>
-            <%= column_header(query, column, query_options) %>
-          <% end %>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% grouped_issue_list(issues, query) do |issue, level| -%>
-          <tr is="wbs-issue" id="issue-<%= issue.id %>" class="hascontextmenu <%= cycle('odd', 'even') %> <%= issue.css_classes %> <%= level > 0 ? "idnt idnt-#{level}" : nil %>" :issue-default="<%= issue.to_json %>">
-            <template slot-scope="props">
-              <td class="checkbox hide-when-print"><%= check_box_tag("ids[]", issue.id, false, :id => nil) %></td>
-              <% query.inline_columns.each do |column| %>
-                <%= content_tag('td', column_content(column, issue), :class => column.css_classes) %>
-              <% end %>
-            </template>
-          </tr>
-
-          <% query.block_columns.each do |column| -%>
-            <% if (text = column_content(column, issue)) && text.present? -%>
-              <tr class="<%= current_cycle %>">
-                <td colspan="<%= query.inline_columns.size + 1 %>" class="<%= column.css_classes %>">
-                  <% if query.block_columns.count > 1 %>
-                    <span><%= column.caption %></span>
-                  <% end %>
-                  <%= text %>
-                </td>
-              </tr>
-            <% end %>
-          <% end %>
-        <% end %>
-      </tbody>
-
-      <tfoot>
-        <tr>
-          <td></td>
-          <% query.inline_columns.each do |column| %>
-            <%= column_footer(query, column, query_options) %>
-          <% end %>
-        </tr>
-      </tfoot>
-    </table>
+    <wbs-issues project-id="<%= project.id %>">
+      <template slot="header">
+        <th>#</th>
+        <th>Subject</th>
+        <th>Estimated time</th>
+        <th>Total estimated time</th>
+      </template>
+    </wbs-issues>
   </div>
 <% end -%>

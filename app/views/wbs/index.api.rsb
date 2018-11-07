@@ -1,0 +1,24 @@
+api.array :issues, api_meta(:total_count => @issues.count) do
+  wbs_grouped_issue_list(@issues) do |issue, level|
+    api.issue do
+      api.id issue.id
+
+      api.level       level
+      api.parent_id   issue.parent_id
+      api.root_id     issue.root_id
+
+      api.subject     issue.subject
+      api.description issue.description
+      api.start_date  issue.start_date
+      api.due_date    issue.due_date
+      api.done_ratio  issue.done_ratio
+      api.is_private  issue.is_private
+      api.estimated_hours issue.estimated_hours
+      api.total_estimated_hours issue.total_estimated_hours
+
+      api.created_on issue.created_on
+      api.updated_on issue.updated_on
+      api.closed_on  issue.closed_on
+    end
+  end
+end
