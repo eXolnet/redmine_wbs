@@ -3,6 +3,7 @@ class WbsQuery < IssueQuery
     QueryColumn.new(:id, :caption => '#', :frozen => true),
     QueryColumn.new(:subject, :frozen => true),
     QueryColumn.new(:estimated_hours, :frozen => true),
+    QueryColumn.new(:total_estimated_hours, :frozen => true),
     QueryColumn.new(:tracker),
     QueryColumn.new(:status),
     QueryColumn.new(:priority),
@@ -10,7 +11,6 @@ class WbsQuery < IssueQuery
     QueryColumn.new(:fixed_version),
     QueryColumn.new(:start_date),
     QueryColumn.new(:due_date),
-    #QueryColumn.new(:total_estimated_hours),
     QueryColumn.new(:done_ratio),
     QueryColumn.new(:description, :inline => false)
   ]

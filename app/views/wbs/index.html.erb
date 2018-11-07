@@ -1,20 +1,11 @@
 <h2><%= l(:label_wbs) %></h2>
 
-<%= form_tag(project_wbs_path(@project), :method => :get, :id => 'query_form') do %>
-  <%= render :partial => 'queries/query_form' %>
-<% end %>
+<%= render :partial => 'wbs/list', :locals => { :project => @project } %>
 
-<% if @query.valid? %>
-  <%= render :partial => 'wbs/list', :locals => {:issues => @issues, :query => @query} %>
-<% end %>
-
-<%= call_hook(:view_wbs_index_bottom, { :issues => @issues, :project => @project, :query => @query }) %>
+<%= call_hook(:view_wbs_index_bottom, { :project => @project }) %>
 
 <% content_for :header_tags do %>
   <%= stylesheet_link_tag 'wbs', :plugin => 'redmine_wbs' %>
 <% end %>
 
-<%= javascript_include_tag '//cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.min.js' %>
 <%= javascript_include_tag 'wbs', :plugin => 'redmine_wbs' %>
-
-<%= context_menu %>

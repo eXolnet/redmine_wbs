@@ -1,9 +1,11 @@
-import Vue from 'vue'
-import WbsIssue from './components/WbsIssue'
+import Vue from 'vue';
+import WbsIssues from './components/WbsIssues';
+
+window.$bus = new Vue();
 
 new Vue({
   el: '#wbs-list',
   components: {
-    WbsIssue,
-  },
+    WbsIssues,
+  }
 });

@@ -3,7 +3,7 @@ require 'redmine'
 WBS_VERSION_NUMBER = '1.0.0'
 
 Redmine::Plugin.register :redmine_wbs do
-  name "WBS"
+  name 'WBS'
   author 'eXolnet'
   description 'Display a WBS view of a project’s issues.'
   version WBS_VERSION_NUMBER

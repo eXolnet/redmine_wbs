@@ -2,6 +2,18 @@ module WbsHelper
   include IssuesHelper
   include QueriesHelper
 
+  def wbs_grouped_issue_list(issues, &block)
+    ancestors = []
+
+    issues.each do |issue|
+      while (ancestors.any? && !issue.is_descendant_of?(ancestors.last))
+        ancestors.pop
+      end
+      yield issue, ancestors.size
+      ancestors << issue unless issue.leaf?
+    end
+  end
+
   def column_value_with_wbs(column, item, value)
     if [:subject].include? column.name
       return tag('input', type: 'text', ':value' => 'props.issue.subject', '@input' => 'props.update({"subject": $event.target.value})')
