@@ -28,7 +28,7 @@
     },
 
     computed: {
-      issueEditable() {
+      watchableColumns() {
         return _pick(this.issue, ['subject', 'estimated_hours']);
       },
 
@@ -104,7 +104,7 @@
     },
 
     watch: {
-      issueEditable: {
+      watchableColumns: {
         handler(newValue, oldValue) {
           if (_isEqual(newValue, oldValue)) {
             return;
