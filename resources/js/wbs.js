@@ -1,3 +1,4 @@
+import './bootstrap';
 import Vue from 'vue';
 import WbsIssues from './components/WbsIssues';
 

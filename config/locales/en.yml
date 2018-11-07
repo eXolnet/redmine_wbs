@@ -2,3 +2,4 @@
 en:
   label_wbs: WBS
   project_module_wbs: WBS
+  text_rest_api_unavailable: "Redmine REST API is required to use this tool. Please verify that it’s enabled and that your user has an API token."
