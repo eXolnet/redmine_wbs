@@ -35,6 +35,8 @@
       cssClasses() {
         const classes = [];
 
+        classes.push(this.issue.is_closed ? 'closed' : 'opened');
+
         // TODO: Add children detection to append `parent` class.
 
         if (this.issue.hasOwnProperty('parent_id')) {

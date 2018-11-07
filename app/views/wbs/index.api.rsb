@@ -13,6 +13,7 @@ api.array :issues, api_meta(:total_count => @issues.count) do
       api.due_date    issue.due_date
       api.done_ratio  issue.done_ratio
       api.is_private  issue.is_private
+      api.is_closed   issue.closed?
       api.estimated_hours issue.estimated_hours
       api.total_estimated_hours issue.total_estimated_hours
 

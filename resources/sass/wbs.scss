@@ -1,13 +1,19 @@
 .issues--wbs {
-  tbody input {
-    color: inherit;
-    border: transparent;
-    background-color: transparent;
-    font-family: Verdana, sans-serif;
-    font-size: 12px;
-    outline: none;
-    padding: 0;
-    width: 100%;
+  tbody {
+    input {
+      color: inherit;
+      border: transparent;
+      background-color: transparent;
+      font-family: Verdana, sans-serif;
+      font-size: 12px;
+      outline: none;
+      padding: 0;
+      width: 100%;
+    }
+
+    tr.closed td.subject input {
+      text-decoration: line-through;
+    }
   }
 
   .estimated_hours input {
