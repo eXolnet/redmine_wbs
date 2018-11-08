@@ -1,50 +1,51 @@
 <template>
   <table class="list issues issues--wbs odd-even">
     <thead>
-      <tr>
-        <slot name="header"></slot>
-      </tr>
+    <tr>
+      <slot name="header"></slot>
+    </tr>
     </thead>
 
     <tbody @keydown.enter.stop.prevent>
-      <tr
-        is="wbs-issue"
-        v-model="issues[$index]"
-        :class="[$index % 2 === 0 ? 'odd' : 'even']"
-        v-for="(issue, $index) in issues"
-        :key="issue.local_key"
-        @keydown.enter.exact.native="newNode($index, issue.parent_id)"
-        @keydown.alt.enter.exact.native="newNode($index, issue.id, 1)"
-        @keydown.alt.down.exact.native="navigateDown($index)"
-        @keydown.alt.up.exact.native="navigateUp($index)"
-      ></tr>
+    <tr
+      is="wbs-issue"
+      v-model="issues[$index]"
+      :class="[$index % 2 === 0 ? 'odd' : 'even']"
+      v-for="(issue, $index) in issues"
+      :key="issue.local_key"
+      @keydown.enter.exact.native="newNode(issue.parent_id)"
+      @keydown.alt.enter.exact.native="newNode(issue.id)"
+      @keydown.alt.down.exact.native="navigateDown($index)"
+      @keydown.alt.up.exact.native="navigateUp($index)"
+    ></tr>
 
-      <tr v-if="issues.length === 0">
-        <td colspan="4">
-          No issues to display. <a href="#" @click.prevent="insertNote(0, null, 0)">Click here</a> to create the first one.
-        </td>
-      </tr>
+    <tr v-if="issues.length === 0">
+      <td colspan="4">
+        No issues to display. <a href="#" @click.prevent="newIssue(0, null, 0)">Click here</a> to create the first one.
+      </td>
+    </tr>
     </tbody>
 
     <tfoot v-if="issues.length > 0">
-      <tr>
-          <td></td>
-          <td></td>
-          <td>{{ total_estimated_hours | round(2) }}</td>
-          <td>{{ total_estimated_hours | round(2) }}</td>
-      </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>{{ total_estimated_hours | round(2) }}</td>
+      <td>{{ total_estimated_hours | round(2) }}</td>
+    </tr>
     </tfoot>
   </table>
 </template>
 
 <script>
+  import _findIndex from 'lodash/findIndex';
   import _keyBy from 'lodash/keyBy';
   import _pick from 'lodash/pick';
   import _sumBy from 'lodash/sumBy';
   import axios from 'axios';
   import WbsIssue from './WbsIssue';
 
-  let uuidAutoincrement = 1;
+  let localKeyAutoincrement = 1;
 
   export default {
     name: 'WbsIssues',
@@ -78,34 +79,34 @@
     },
 
     methods: {
-      newNode(ofIssueIndex, parentId, indentation = 0) {
-        const ofIssue = this.issues[ofIssueIndex];
+      newNode(parentId = null) {
+        let targetLevel = 0;
+        let parentIndex = _findIndex(this.issues, ['id', parentId]);
+        let parentLevel = -1;
 
-        if ( ! ofIssue.hasOwnProperty('id')) {
-          return;
-        }
+        const parentIssue = this.issues[parentIndex];
 
-        const targetLevel = ofIssue.level + indentation;
-        const targetIndex = this.getTargetIndex(ofIssueIndex, targetLevel);
+        parentLevel = parentIssue ? parentIssue.level : -1;
+        targetLevel = parentLevel + 1;
 
-        this.insertNote(targetIndex, parentId, targetLevel);
+        const targetIndex = this.getTargetIndex(parentIndex + 1, targetLevel);
+
+        this.newIssue(targetIndex, parentId, targetLevel);
       },
 
       getTargetIndex(fromIndex, minLevel) {
-        let targetIndex = fromIndex + 1;
+        let targetIndex = fromIndex;
 
-        for (let i = targetIndex; i < this.issues.length; i++) {
-          if (this.issues[i].level < minLevel) {
+        for (; targetIndex < this.issues.length; targetIndex++) {
+          if (this.issues[targetIndex].level < minLevel) {
             break;
           }
-
-          targetIndex = i + 1;
         }
 
         return targetIndex;
       },
 
-      insertNote(index, parent_id, level) {
+      newIssue(index, parent_id, level) {
         const newIssue = {
           estimated_hours: '',
           level,
@@ -133,7 +134,7 @@
         this.navigateVertically(index - 1);
       },
 
-      navigateVertically(targetIndex)  {
+      navigateVertically(targetIndex) {
         const targetRow = document.querySelectorAll('.list tbody tr')[targetIndex];
 
         if (targetRow) {
@@ -162,7 +163,7 @@
       },
 
       newLocalKey() {
-        return uuidAutoincrement++;
+        return localKeyAutoincrement++;
       },
     },
 
