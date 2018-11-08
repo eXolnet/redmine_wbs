@@ -1,6 +1,3 @@
-<% query_options = nil unless defined?(query_options) %>
-<% query_options ||= {} %>
-
 <%= form_tag({}, :id => 'wbs-list', :data => {:cm_url => issues_context_menu_path}) do -%>
   <%= hidden_field_tag 'back_url', url_for(:params => request.query_parameters), :id => nil %>
 
