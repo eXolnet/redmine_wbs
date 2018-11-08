@@ -13,15 +13,15 @@
         :class="[$index % 2 === 0 ? 'odd' : 'even']"
         v-for="(issue, $index) in issues"
         :key="issue.local_key"
-        @keydown.enter.exact.native="newSibling($index)"
-        @keydown.alt.enter.exact.native="newChild($index)"
+        @keydown.enter.exact.native="newNode($index, issue.parent_id)"
+        @keydown.alt.enter.exact.native="newNode($index, issue.id, 1)"
         @keydown.alt.down.exact.native="navigateDown($index)"
         @keydown.alt.up.exact.native="navigateUp($index)"
       ></tr>
 
       <tr v-if="issues.length === 0">
         <td colspan="4">
-          No issues to display. <a href="#" @click.prevent="newIssue(0, null, 0)">Click here</a> to create the first one.
+          No issues to display. <a href="#" @click.prevent="insertNote(0, null, 0)">Click here</a> to create the first one.
         </td>
       </tr>
     </tbody>
@@ -38,7 +38,6 @@
 </template>
 
 <script>
-  import _findLastIndex from 'lodash/findLastIndex';
   import _keyBy from 'lodash/keyBy';
   import _pick from 'lodash/pick';
   import _sumBy from 'lodash/sumBy';
@@ -79,45 +78,34 @@
     },
 
     methods: {
-      newSibling(ofIssueIndex) {
+      newNode(ofIssueIndex, parentId, indentation = 0) {
         const ofIssue = this.issues[ofIssueIndex];
 
         if ( ! ofIssue.hasOwnProperty('id')) {
           return;
         }
 
-        let targetIndex = ofIssueIndex + 1;
+        const targetLevel = ofIssue.level + indentation;
+        const targetIndex = this.getTargetIndex(ofIssueIndex, targetLevel);
+
+        this.insertNote(targetIndex, parentId, targetLevel);
+      },
+
+      getTargetIndex(fromIndex, minLevel) {
+        let targetIndex = fromIndex + 1;
 
         for (let i = targetIndex; i < this.issues.length; i++) {
-          if (this.issues[i].level < ofIssue.level) {
+          if (this.issues[i].level < minLevel) {
             break;
           }
 
-          targetIndex = i;
+          targetIndex = i + 1;
         }
 
-        this.newIssue(targetIndex + 1, ofIssue.parent_id, ofIssue.level);
+        return targetIndex;
       },
 
-      newChild(ofIssueIndex) {
-        const ofIssue = this.issues[ofIssueIndex];
-
-        if ( ! ofIssue.hasOwnProperty('id')) {
-          return;
-        }
-
-        let targetIndex = _findLastIndex(this.issues, issue => {
-          return issue.parent_id === ofIssue.id && issue.level >= ofIssue.level;
-        });
-
-        if (targetIndex < 0) {
-          targetIndex = ofIssueIndex;
-        }
-
-        this.newIssue(targetIndex + 1, ofIssue.id, ofIssue.level + 1);
-      },
-
-      newIssue(index, parent_id, level) {
+      insertNote(index, parent_id, level) {
         const newIssue = {
           estimated_hours: '',
           level,
