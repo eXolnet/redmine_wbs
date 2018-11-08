@@ -1,51 +1,51 @@
 <template>
   <table class="list issues issues--wbs odd-even">
     <thead>
-      <tr>
-        <slot name="header"></slot>
-      </tr>
+    <tr>
+      <slot name="header"></slot>
+    </tr>
     </thead>
 
     <tbody @keydown.enter.stop.prevent>
-      <tr
-        is="wbs-issue"
-        v-model="issues[$index]"
-        :class="[$index % 2 === 0 ? 'odd' : 'even']"
-        v-for="(issue, $index) in issues"
-        :key="issue.local_key"
-        @keydown.enter.exact.native="newSibling($index)"
-        @keydown.alt.enter.exact.native="newChild($index)"
-        @keydown.alt.down.exact.native="navigateDown($index)"
-        @keydown.alt.up.exact.native="navigateUp($index)"
-      ></tr>
+    <tr
+      is="wbs-issue"
+      v-model="issues[$index]"
+      :class="[$index % 2 === 0 ? 'odd' : 'even']"
+      v-for="(issue, $index) in issues"
+      :key="issue.local_key"
+      @keydown.enter.exact.native="newNode(issue.parent_id)"
+      @keydown.alt.enter.exact.native="newNode(issue.id)"
+      @keydown.alt.down.exact.native="navigateDown($index)"
+      @keydown.alt.up.exact.native="navigateUp($index)"
+    ></tr>
 
-      <tr v-if="issues.length === 0">
-        <td colspan="4">
-          No issues to display. <a href="#" @click.prevent="newIssue(0, null, 0)">Click here</a> to create the first one.
-        </td>
-      </tr>
+    <tr v-if="issues.length === 0">
+      <td colspan="4">
+        No issues to display. <a href="#" @click.prevent="newIssue(0, null, 0)">Click here</a> to create the first one.
+      </td>
+    </tr>
     </tbody>
 
     <tfoot v-if="issues.length > 0">
-      <tr>
-          <td></td>
-          <td></td>
-          <td>{{ total_estimated_hours | round(2) }}</td>
-          <td>{{ total_estimated_hours | round(2) }}</td>
-      </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>{{ total_estimated_hours | round(2) }}</td>
+      <td>{{ total_estimated_hours | round(2) }}</td>
+    </tr>
     </tfoot>
   </table>
 </template>
 
 <script>
-  import _findLastIndex from 'lodash/findLastIndex';
+  import _findIndex from 'lodash/findIndex';
   import _keyBy from 'lodash/keyBy';
   import _pick from 'lodash/pick';
   import _sumBy from 'lodash/sumBy';
   import axios from 'axios';
   import WbsIssue from './WbsIssue';
 
-  let uuidAutoincrement = 1;
+  let localKeyAutoincrement = 1;
 
   export default {
     name: 'WbsIssues',
@@ -79,42 +79,31 @@
     },
 
     methods: {
-      newSibling(ofIssueIndex) {
-        const ofIssue = this.issues[ofIssueIndex];
+      newNode(parentId = null) {
+        let targetLevel = 0;
+        let parentIndex = _findIndex(this.issues, ['id', parentId]);
+        let parentLevel = -1;
 
-        if ( ! ofIssue.hasOwnProperty('id')) {
-          return;
-        }
+        const parentIssue = this.issues[parentIndex];
 
-        let targetIndex = ofIssueIndex + 1;
+        parentLevel = parentIssue ? parentIssue.level : -1;
+        targetLevel = parentLevel + 1;
 
-        for (let i = targetIndex; i < this.issues.length; i++) {
-          if (this.issues[i].level < ofIssue.level) {
-            break;
-          }
+        const targetIndex = this.getTargetIndex(parentIndex + 1, targetLevel);
 
-          targetIndex = i;
-        }
-
-        this.newIssue(targetIndex + 1, ofIssue.parent_id, ofIssue.level);
+        this.newIssue(targetIndex, parentId, targetLevel);
       },
 
-      newChild(ofIssueIndex) {
-        const ofIssue = this.issues[ofIssueIndex];
+      getTargetIndex(fromIndex, minLevel) {
+        let targetIndex = fromIndex;
 
-        if ( ! ofIssue.hasOwnProperty('id')) {
-          return;
+        for (; targetIndex < this.issues.length; targetIndex++) {
+          if (this.issues[targetIndex].level < minLevel) {
+            break;
+          }
         }
 
-        let targetIndex = _findLastIndex(this.issues, issue => {
-          return issue.parent_id === ofIssue.id && issue.level >= ofIssue.level;
-        });
-
-        if (targetIndex < 0) {
-          targetIndex = ofIssueIndex;
-        }
-
-        this.newIssue(targetIndex + 1, ofIssue.id, ofIssue.level + 1);
+        return targetIndex;
       },
 
       newIssue(index, parent_id, level) {
@@ -145,7 +134,7 @@
         this.navigateVertically(index - 1);
       },
 
-      navigateVertically(targetIndex)  {
+      navigateVertically(targetIndex) {
         const targetRow = document.querySelectorAll('.list tbody tr')[targetIndex];
 
         if (targetRow) {
@@ -174,7 +163,7 @@
       },
 
       newLocalKey() {
-        return uuidAutoincrement++;
+        return localKeyAutoincrement++;
       },
     },
 
