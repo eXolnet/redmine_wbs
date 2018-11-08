@@ -82,8 +82,7 @@
               this.update({id: response.data.issue.id});
             }
 
-            window.$bus.$emit('loadIssues');
-            // TODO: Maybe a toast panel such as https://github.com/shakee93/vue-toasted.
+            window.$bus.$emit('loadIssues'); // TODO: Handle event emission more wisely...
           })
           .catch(error => {
             // TODO: Handle and manage caught errors properly
