@@ -20,7 +20,7 @@
     ></tr>
 
     <tr v-if="issues.length === 0">
-      <td colspan="4">
+      <td colspan="5">
         No issues to display. <a href="#" @click.prevent="newIssue(0, null, 0)">Click here</a> to create the first one.
       </td>
     </tr>
@@ -28,6 +28,7 @@
 
     <tfoot v-if="issues.length > 0">
     <tr>
+      <td></td>
       <td></td>
       <td></td>
       <td>{{ total_estimated_hours | round(2) }}</td>
