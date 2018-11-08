@@ -22,7 +22,7 @@ class WbsController < ApplicationController
   private
 
   def ensure_rest_api_is_available
-    return if Setting.rest_api_enabled == "1" && User.current.api_token.present?
+    return if Setting.rest_api_enabled == "1"
 
     render :template => 'wbs/rest_api_is_unavailable', :status => 403
   end

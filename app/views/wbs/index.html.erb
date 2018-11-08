@@ -8,7 +8,7 @@
   <%= stylesheet_link_tag 'wbs', :plugin => 'redmine_wbs' %>
 
   <% if User.current.api_token %>
-    <meta name="user-api-key" content="<%= User.current.api_token.value %>">
+    <meta name="user-api-key" content="<%= User.current.api_key %>">
   <% end %>
 <% end %>
 
