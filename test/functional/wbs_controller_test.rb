@@ -6,11 +6,13 @@ class WbsControllerTest < ActionController::TestCase
            :roles,
            :members,
            :member_roles,
+           :issues,
+           :issue_statuses,
+           :trackers,
+           :projects_trackers,
+           :issue_categories,
            :enabled_modules,
-           :enumerations,
-           :repositories,
-           :changesets,
-           :changes
+           :enumerations
 
   def setup
     # Enable the REST API
