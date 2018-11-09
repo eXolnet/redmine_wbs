@@ -1,7 +1,4 @@
 module WbsHelper
-  include IssuesHelper
-  include QueriesHelper
-
   def wbs_grouped_issue_list(issues, &block)
     ancestors = []
 
@@ -12,17 +9,5 @@ module WbsHelper
       yield issue, ancestors.size
       ancestors << issue unless issue.leaf?
     end
-  end
-
-  def column_value_with_wbs(column, item, value)
-    if [:subject].include? column.name
-      return tag('input', type: 'text', ':value' => 'props.issue.subject', '@input' => 'props.update({"subject": $event.target.value})')
-    end
-
-    if [:estimated_hours].include? column.name
-      return tag('input', type: 'number', ':value' => 'props.issue.estimated_hours', '@input' => 'props.update({"estimated_hours": $event.target.value})')
-    end
-
-    column_value_without_wbs(column, item, value)
   end
 end
