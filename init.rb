@@ -12,6 +12,9 @@ Redmine::Plugin.register :redmine_wbs do
 
   requires_redmine :version_or_higher => '2.3'
 
+  settings :default => {},
+           :partial => 'settings/wbs/general'
+
   menu :project_menu, :wbs, { :controller => 'wbs', :action => 'index' }, :caption => :label_wbs, :before => :gantt, :param => :project_id
 
   project_module :wbs do

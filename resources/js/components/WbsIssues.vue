@@ -113,7 +113,7 @@
           level,
           project_id: this.projectId,
           subject: '',
-          tracker_id: 1, // TODO: Change me... do we need to insert a dynamic value here?
+          tracker_id: this.defaultTrackerId,
           local_key: this.newLocalKey(),
         };
 
@@ -176,6 +176,10 @@
 
     props: {
       projectId: {
+        type: String,
+        required: true,
+      },
+      defaultTrackerId: {
         type: String,
         required: true,
       }

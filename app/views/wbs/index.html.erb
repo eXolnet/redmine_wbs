@@ -1,6 +1,6 @@
 <h2><%= l(:label_wbs) %></h2>
 
-<%= render :partial => 'wbs/list', :locals => { :project => @project } %>
+<%= render :partial => 'wbs/list', :locals => { :project => @project, :default_tracker_id => @default_tracker_id } %>
 
 <%= call_hook(:view_wbs_index_bottom, { :project => @project }) %>
 

@@ -2,7 +2,7 @@
   <%= hidden_field_tag 'back_url', url_for(:params => request.query_parameters), :id => nil %>
 
   <div class="autoscroll">
-    <wbs-issues project-id="<%= project.id %>">
+    <wbs-issues project-id="<%= project.id %>" default-tracker-id="<%= default_tracker_id %>">
       <template slot="header">
         <th class="checkbox hide-when-print">
           <%= check_box_tag 'check_all', '', false, :class => 'toggle-selection', :title => "#{l(:button_check_all)}/#{l(:button_uncheck_all)}" %>
