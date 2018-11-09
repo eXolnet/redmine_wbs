@@ -33,3 +33,10 @@ if (token) {
 } else {
   console.error('User API key not found!');
 }
+
+/**
+ * Prevent Redmine to display a warning when editing a textarea
+ */
+$(window).load(() => {
+  window.onbeforeunload = null;
+});

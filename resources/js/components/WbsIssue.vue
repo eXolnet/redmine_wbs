@@ -34,7 +34,13 @@
 
     computed: {
       watchableColumns() {
-        return _pick(this.issue, ['subject', 'estimated_hours']);
+        return _pick(this.issue, COLUMNS_EDITABLE);
+      },
+
+      countDescriptionLines() {
+        const description = this.issue.description || "";
+
+        return description.split(/\r\n|\r|\n/).length;
       },
 
       cssClasses() {
@@ -50,7 +56,17 @@
           classes.push(`idnt-${ this.issue.level }`);
         }
 
+        if (this.issue.description) {
+          classes.push('hasdescription');
+        }
+
         return classes;
+      }
+    },
+
+    data() {
+      return {
+        isDescriptionShowed: false,
       }
     },
 
@@ -96,6 +112,26 @@
             console.error('WbsIssue Error', error);
           });
       },
+
+      hideDescription() {
+        this.isDescriptionShowed = false;
+
+        this.$nextTick(() => this.$refs.subject.focus());
+      },
+
+      showDescription() {
+        this.isDescriptionShowed = true;
+
+        this.$nextTick(() => this.$refs.description.focus());
+      },
+
+      toggleDescription() {
+        if (this.isDescriptionShowed) {
+          this.hideDescription();
+        } else {
+          this.showDescription();
+        }
+      }
     },
 
     mounted() {
