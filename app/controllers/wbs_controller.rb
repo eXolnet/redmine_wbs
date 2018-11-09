@@ -24,6 +24,6 @@ class WbsController < ApplicationController
   def ensure_rest_api_is_available
     return if Setting.rest_api_enabled == "1"
 
-    render :template => 'wbs/rest_api_is_unavailable', :status => 403
+    render_error :message => l(:error_rest_api_unavailable), :status => 403
   end
 end

@@ -143,10 +143,10 @@
       },
 
       navigateVertically(targetIndex) {
-        const targetRow = document.querySelectorAll('.list tbody tr')[targetIndex];
+        const targetRow = this.$el.querySelectorAll('tbody tr')[targetIndex];
 
         if (targetRow) {
-          targetRow.querySelector('input').focus();
+          targetRow.querySelector('input[type=text]').focus();
         }
       },
 
