@@ -4,11 +4,11 @@
       <td class="checkbox hide-when-print">
         <input type="checkbox" name="ids[]" :value="issue.id">
       </td>
-      <td class="description_toggle">
-        <a href="#" class="wbs__description-toggle" @click.prevent="toggleDescription"></a>
-      </td>
       <td class="id">
         <a :href="'/issues/' + issue.id">{{ issue.id }}</a>
+      </td>
+      <td class="description_toggle">
+        <a href="#" class="wbs__description-toggle" @click.prevent="toggleDescription"></a>
       </td>
       <td class="subject">
         <input ref="subject" type="text" :value="issue.subject" @input="update({ subject: $event.target.value })"/>
