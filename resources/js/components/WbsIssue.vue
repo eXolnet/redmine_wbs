@@ -82,7 +82,7 @@
               this.update({id: response.data.issue.id});
             }
 
-            window.$bus.$emit('loadIssues'); // TODO: Handle event emission more wisely...
+            this.$emit('refreshIssueList');
           })
           .catch(error => {
             // TODO: Handle and manage caught errors properly

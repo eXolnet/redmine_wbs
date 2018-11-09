@@ -20,6 +20,7 @@
         :class="[$index % 2 === 0 ? 'odd' : 'even']"
         v-for="(issue, $index) in issues"
         :key="issue.local_key"
+        @refreshIssueList="loadIssues"
         @keydown.enter.exact.native="newSibling($index)"
         @keydown.alt.enter.exact.native="newChild($index)"
         @keydown.alt.down.exact.native="navigateDown($index)"
@@ -181,8 +182,6 @@
 
     mounted() {
       this.loadIssues();
-
-      window.$bus.$on('loadIssues', this.loadIssues);
     },
 
     props: {
