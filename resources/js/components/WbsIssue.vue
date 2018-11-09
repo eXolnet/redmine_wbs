@@ -1,21 +1,39 @@
 <template>
-  <tr class="issue hascontextmenu" :class="cssClasses">
-    <td class="checkbox hide-when-print">
-      <input type="checkbox" name="ids[]" :value="issue.id">
-    </td>
-    <td class="id">
-      <a :href="'/issues/' + issue.id">{{ issue.id }}</a>
-    </td>
-    <td class="subject">
-      <input type="text" :value="issue.subject" @input="update({ subject: $event.target.value })"/>
-    </td>
-    <td class="estimated_hours">
-      <input type="number" :value="issue.estimated_hours" @input="update({ estimated_hours: $event.target.value })" @keydown.alt.up.exact.prevent/>
-    </td>
-    <td class="total_estimated_hours">
-      {{ issue.total_estimated_hours | round(2) }}
-    </td>
-  </tr>
+  <tbody @keydown.meta.shift.down.stop.prevent="showDescription" @keydown.meta.shift.up.stop.prevent="hideDescription">
+    <tr class="issue hascontextmenu" :class="cssClasses">
+      <td class="checkbox hide-when-print">
+        <input type="checkbox" name="ids[]" :value="issue.id">
+      </td>
+      <td class="id">
+        <a :href="'/issues/' + issue.id">{{ issue.id }}</a>
+      </td>
+      <td class="description_toggle">
+        <a href="#" class="wbs__description-toggle" @click.prevent="toggleDescription"></a>
+      </td>
+      <td class="subject">
+        <input ref="subject" type="text" :value="issue.subject" @input="update({ subject: $event.target.value })"/>
+      </td>
+      <td class="estimated_hours">
+        <input ref="estimated_hours" type="number" :value="issue.estimated_hours" @input="update({ estimated_hours: $event.target.value })" @keydown.alt.up.exact.prevent/>
+      </td>
+      <td class="total_estimated_hours">
+        {{ issue.total_estimated_hours | round(2) }}
+      </td>
+    </tr>
+
+    <tr class="issue" :class="cssClasses" v-if="isDescriptionShowed">
+      <td colspan="3"></td>
+      <td class="description">
+        <textarea
+          ref="description"
+          :rows="countDescriptionLines"
+          :value="issue.description"
+          @input="update({ description: $event.target.value })"
+          @keydown.enter.stop
+        ></textarea>
+      </td>
+    </tr>
+  </tbody>
 </template>
 
 <script>
@@ -23,6 +41,8 @@
   import _isEqual from 'lodash/isEqual';
   import _pick from 'lodash/pick';
   import axios from 'axios';
+
+  import { COLUMNS_EDITABLE } from '../constants';
 
   export default {
     name: 'WbsIssue',
@@ -34,7 +54,13 @@
 
     computed: {
       watchableColumns() {
-        return _pick(this.issue, ['subject', 'estimated_hours']);
+        return _pick(this.issue, COLUMNS_EDITABLE);
+      },
+
+      countDescriptionLines() {
+        const description = this.issue.description || "";
+
+        return description.split(/\r\n|\r|\n/).length;
       },
 
       cssClasses() {
@@ -50,7 +76,17 @@
           classes.push(`idnt-${ this.issue.level }`);
         }
 
+        if (this.issue.description) {
+          classes.push('hasdescription');
+        }
+
         return classes;
+      }
+    },
+
+    data() {
+      return {
+        isDescriptionShowed: false,
       }
     },
 
@@ -96,6 +132,26 @@
             console.error('WbsIssue Error', error);
           });
       },
+
+      hideDescription() {
+        this.isDescriptionShowed = false;
+
+        this.$nextTick(() => this.$refs.subject.focus());
+      },
+
+      showDescription() {
+        this.isDescriptionShowed = true;
+
+        this.$nextTick(() => this.$refs.description.focus());
+      },
+
+      toggleDescription() {
+        if (this.isDescriptionShowed) {
+          this.hideDescription();
+        } else {
+          this.showDescription();
+        }
+      }
     },
 
     mounted() {

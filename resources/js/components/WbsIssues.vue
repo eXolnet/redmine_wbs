@@ -6,8 +6,7 @@
       </tr>
     </thead>
 
-    <tbody @keydown.enter.stop.prevent>
-    <tr
+    <tbody
       is="wbs-issue"
       v-model="issues[$index]"
       :class="[$index % 2 === 0 ? 'odd' : 'even']"
@@ -18,20 +17,19 @@
       @keydown.alt.enter.exact.native="newNode(issue.id)"
       @keydown.alt.down.exact.native="navigateDown($index)"
       @keydown.alt.up.exact.native="navigateUp($index)"
-    ></tr>
+    ></tbody>
 
-    <tr v-if="issues.length === 0">
-      <td colspan="5">
-        No issues to display. <a href="#" @click.prevent="newIssue(0, null, 0)">Click here</a> to create the first one.
-      </td>
-    </tr>
+    <tbody v-if="issues.length === 0">
+      <tr>
+        <td colspan="6">
+          No issues to display. <a href="#" @click.prevent="newIssue(0, null, 0)">Click here</a> to create the first one.
+        </td>
+      </tr>
     </tbody>
 
     <tfoot v-if="issues.length > 0">
     <tr>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td colspan="4"></td>
       <td>{{ total_estimated_hours | round(2) }}</td>
       <td>{{ total_estimated_hours | round(2) }}</td>
     </tr>
@@ -46,6 +44,8 @@
   import _sumBy from 'lodash/sumBy';
   import axios from 'axios';
   import WbsIssue from './WbsIssue';
+
+  import { COLUMNS_EDITABLE } from '../constants';
 
   let localKeyAutoincrement = 1;
 
@@ -158,7 +158,7 @@
 
           issue.local_key = this.newLocalKey();
 
-          issue = Object.assign(issue, _pick(oldIssue, ['subject', 'estimated_hours', 'local_key']));
+          issue = Object.assign(issue, _pick(oldIssue, ['local_key'].concat(COLUMNS_EDITABLE)));
 
           return issue;
         });

@@ -13,4 +13,7 @@ const mix = require('laravel-mix');
 
 mix
   .js('resources/js/wbs.js', 'assets/javascripts')
-  .sass('resources/sass/wbs.scss', 'assets/stylesheets');
+  .sass('resources/sass/wbs.scss', 'assets/stylesheets')
+  .options({
+    processCssUrls: false,
+  });
