@@ -1,9 +1,16 @@
 <template>
   <table class="list issues issues--wbs odd-even">
+    <colgroup>
+      <col width="75">
+      <col>
+      <col width="125">
+      <col width="150">
+    </colgroup>
+
     <thead>
-    <tr>
-      <slot name="header"></slot>
-    </tr>
+      <tr>
+        <slot name="header"></slot>
+      </tr>
     </thead>
 
     <tbody @keydown.enter.stop.prevent>
@@ -13,6 +20,7 @@
       :class="[$index % 2 === 0 ? 'odd' : 'even']"
       v-for="(issue, $index) in issues"
       :key="issue.local_key"
+      @refreshIssueList="loadIssues"
       @keydown.enter.exact.native="newNode(issue.parent_id)"
       @keydown.alt.enter.exact.native="newNode(issue.id)"
       @keydown.alt.down.exact.native="navigateDown($index)"
@@ -170,8 +178,6 @@
 
     mounted() {
       this.loadIssues();
-
-      window.$bus.$on('loadIssues', this.loadIssues);
     },
 
     props: {

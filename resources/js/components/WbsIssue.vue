@@ -31,7 +31,7 @@
     },
 
     computed: {
-      issueEditable() {
+      watchableColumns() {
         return _pick(this.issue, ['subject', 'estimated_hours']);
       },
 
@@ -87,8 +87,7 @@
               this.update({id: response.data.issue.id});
             }
 
-            window.$bus.$emit('loadIssues');
-            // TODO: Maybe a toast panel such as https://github.com/shakee93/vue-toasted.
+            this.$emit('refreshIssueList');
           })
           .catch(error => {
             // TODO: Handle and manage caught errors properly
@@ -109,7 +108,7 @@
     },
 
     watch: {
-      issueEditable: {
+      watchableColumns: {
         handler(newValue, oldValue) {
           if (_isEqual(newValue, oldValue)) {
             return;

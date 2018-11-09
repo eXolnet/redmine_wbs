@@ -1,5 +1,9 @@
 .issues--wbs {
   tbody {
+    td.subject {
+      min-width: 300px;
+    }
+
     input {
       color: inherit;
       border: transparent;
