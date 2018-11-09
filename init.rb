@@ -10,7 +10,7 @@ Redmine::Plugin.register :redmine_wbs do
   url 'https://github.com/eXolnet/redmine-wbs'
   author_url 'https://www.exolnet.com'
 
-  requires_redmine :version_or_higher => '2.3'
+  requires_redmine :version_or_higher => '3.4'
 
   menu :project_menu, :wbs, { :controller => 'wbs', :action => 'index' }, :caption => :label_wbs, :before => :gantt, :param => :project_id
 
