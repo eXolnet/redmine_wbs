@@ -13,11 +13,16 @@ class WbsControllerTest < ActionController::TestCase
            :changes
 
   def setup
-    @project1 = Project.find(1)
-    @project2 = Project.find(5)
-    EnabledModule.create(:project => @project1, :name => 'wbs')
-    EnabledModule.create(:project => @project2, :name => 'wbs')
+    # Enable the REST API
+    Setting.rest_api_enabled = 1
+
+    # Configure the logged user
     @request.session[:user_id] = 1
+    User.current.create_api_token
+
+    # Enable the WBS module on one project
+    @project1 = Project.find(1)
+    EnabledModule.create(:project => @project1, :name => 'wbs')
   end
 
   def test_get_index_with_project

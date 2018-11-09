@@ -1,5 +1,8 @@
 <template>
-  <tr class="issue" :class="cssClasses">
+  <tr class="issue hascontextmenu" :class="cssClasses">
+    <td class="checkbox hide-when-print">
+      <input type="checkbox" name="ids[]" :value="issue.id">
+    </td>
     <td class="id">
       <a :href="'/issues/' + issue.id">{{ issue.id }}</a>
     </td>
@@ -34,6 +37,8 @@
 
       cssClasses() {
         const classes = [];
+
+        classes.push(this.issue.is_closed ? 'closed' : 'opened');
 
         // TODO: Add children detection to append `parent` class.
 

@@ -1,20 +1,22 @@
 .issues--wbs {
   tbody {
-    tr {
-      td.subject {
-        min-width: 300px;
-      }
+    td.subject {
+      min-width: 300px;
+    }
 
-      input {
-        color: inherit;
-        border: transparent;
-        background-color: transparent;
-        font-family: Verdana, sans-serif;
-        font-size: 12px;
-        outline: none;
-        padding: 0;
-        width: 100%;
-      }
+    input {
+      color: inherit;
+      border: transparent;
+      background-color: transparent;
+      font-family: Verdana, sans-serif;
+      font-size: 12px;
+      outline: none;
+      padding: 0;
+      width: 100%;
+    }
+
+    tr.closed td.subject input {
+      text-decoration: line-through;
     }
   }
 
