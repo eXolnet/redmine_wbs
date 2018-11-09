@@ -12,7 +12,9 @@
     <td class="estimated_hours">
       <input type="number" :value="issue.estimated_hours" @input="update({ estimated_hours: $event.target.value })" @keydown.alt.up.exact.prevent/>
     </td>
-    <td>{{ issue.total_estimated_hours | round(2) }}</td>
+    <td class="total_estimated_hours">
+      {{ issue.total_estimated_hours | round(2) }}
+    </td>
   </tr>
 </template>
 

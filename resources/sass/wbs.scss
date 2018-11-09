@@ -1,9 +1,5 @@
-.issues--wbs {
+table.issues--wbs {
   tbody {
-    td.subject {
-      min-width: 300px;
-    }
-
     input {
       color: inherit;
       border: transparent;
@@ -12,6 +8,7 @@
       font-size: 12px;
       outline: none;
       padding: 0;
+      text-align: inherit;
       width: 100%;
     }
 
@@ -20,8 +17,15 @@
     }
   }
 
-  .estimated_hours input {
-    text-align: center;
+  td {
+    &.subject {
+      min-width: 300px;
+    }
+
+    &.estimated_hours,
+    &.total_estimated_hours {
+      width: 150px;
+    }
   }
 
   tfoot td {

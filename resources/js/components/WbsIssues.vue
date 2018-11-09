@@ -1,12 +1,5 @@
 <template>
   <table class="list issues issues--wbs odd-even">
-    <colgroup>
-      <col width="75">
-      <col>
-      <col width="125">
-      <col width="150">
-    </colgroup>
-
     <thead>
       <tr>
         <slot name="header"></slot>
