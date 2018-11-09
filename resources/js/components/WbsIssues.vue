@@ -20,6 +20,7 @@
       :class="[$index % 2 === 0 ? 'odd' : 'even']"
       v-for="(issue, $index) in issues"
       :key="issue.local_key"
+      @refreshIssueList="loadIssues"
       @keydown.enter.exact.native="newNode(issue.parent_id)"
       @keydown.alt.enter.exact.native="newNode(issue.id)"
       @keydown.alt.down.exact.native="navigateDown($index)"
