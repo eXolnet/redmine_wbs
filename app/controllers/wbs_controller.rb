@@ -13,7 +13,10 @@ class WbsController < ApplicationController
         render :layout => !request.xhr?
       }
       format.api  {
-        @issues = @project.issues.visible.order("#{Issue.table_name}.root_id ASC, #{Issue.table_name}.lft ASC")
+        @issues = @project.issues.visible
+                    .where
+                      .not(tracker_id: RedmineWbs.excluded_tracker_ids.reject { |c| c.empty? })
+                    .order("#{Issue.table_name}.root_id ASC, #{Issue.table_name}.lft ASC")
       }
     end
   rescue ActiveRecord::RecordNotFound
