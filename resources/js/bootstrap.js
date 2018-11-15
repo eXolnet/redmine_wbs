@@ -28,7 +28,7 @@ if (token) {
 
 const userApiKey = document.head.querySelector('meta[name="user-api-key"]');
 
-if (token) {
+if (userApiKey) {
   axios.defaults.headers.common['X-Redmine-API-Key'] = userApiKey.content;
 } else {
   console.error('User API key not found!');
