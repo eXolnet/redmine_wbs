@@ -2,5 +2,6 @@
 en:
   label_wbs: WBS
   label_default_tracker: Default tracker
+  label_excluded_tracker: Excluded tracker
   project_module_wbs: WBS
   error_rest_api_unavailable: "Redmine REST API is required to use this tool. Please verify that it’s enabled and that your user has an API token."

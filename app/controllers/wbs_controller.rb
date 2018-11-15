@@ -13,7 +13,7 @@ class WbsController < ApplicationController
         render :layout => !request.xhr?
       }
       format.api  {
-        @issues = @project.issues.visible.order("#{Issue.table_name}.root_id ASC, #{Issue.table_name}.lft ASC")
+        @issues = WbsQuery.new(@project).issues
       }
     end
   rescue ActiveRecord::RecordNotFound
