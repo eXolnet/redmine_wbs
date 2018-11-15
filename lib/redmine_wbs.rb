@@ -5,7 +5,7 @@ module RedmineWbs
       end
 
     def excluded_tracker_ids
-      Setting.plugin_redmine_wbs['excluded_tracker']
+      Setting.plugin_redmine_wbs['excluded_tracker'] || []
     end
   end
 end
