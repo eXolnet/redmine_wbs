@@ -5,13 +5,13 @@
         <input type="checkbox" name="ids[]" :value="issue.id">
       </td>
       <td class="id">
-        <a :href="'/issues/' + issue.id">{{ issue.id }}</a>
+        <a :href="'/issues/' + issue.id" v-if="issue.id">{{ issue.id }}</a>
       </td>
       <td class="description_toggle">
         <a href="#" class="wbs__description-toggle" @click.prevent="toggleDescription"></a>
       </td>
       <td class="subject">
-        <input ref="subject" type="text" :value="issue.subject" @input="update({ subject: $event.target.value })" @blur="removeIfNewEmptyIssue"/>
+        <input ref="subject" type="text" :value="issue.subject" @input="update({ subject: $event.target.value })" @blur="handleSubjectBlur"/>
       </td>
       <td class="estimated_hours">
         <input ref="estimated_hours" type="number" :value="issue.estimated_hours" @input="update({ estimated_hours: $event.target.value })" @keydown.alt.up.exact.prevent/>
@@ -121,10 +121,12 @@
             const { issue } = response.data;
 
             if (issue) {
-              this.update(_omit(response.data, COLUMNS_EDITABLE));
+              this.update(_omit(issue, COLUMNS_EDITABLE));
             }
 
-            this.$emit('refreshIssueList');
+            if (this.issue.id) {
+              this.$emit('refreshIssueList');
+            }
           })
           .catch(error => {
             // TODO: Handle and manage caught errors properly
@@ -177,8 +179,9 @@
         }
       },
 
-      removeIfNewEmptyIssue() {
+      handleSubjectBlur() {
         if (this.issue.id || this.issue.subject) {
+          this.saving.flush();
           return;
         }
 
@@ -198,6 +201,13 @@
     },
 
     watch: {
+      'issue.id': {
+        handler() {
+          this.$emit('refreshIssueList');
+        },
+        once: true,
+      },
+
       watchableColumns: {
         handler(newValue, oldValue) {
           if (_isEqual(newValue, oldValue)) {

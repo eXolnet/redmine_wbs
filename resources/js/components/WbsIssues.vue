@@ -84,6 +84,12 @@
 
     methods: {
       newNode(parentId = null) {
+        const location = this.newNodeLocation(parentId);
+
+        this.newIssue(location.index, parentId, location.level);
+      },
+
+      newNodeLocation(parentId = null) {
         let targetLevel = 0;
         let parentIndex = _findIndex(this.issues, ['id', parentId]);
         let parentLevel = -1;
@@ -93,9 +99,10 @@
         parentLevel = parentIssue ? parentIssue.level : -1;
         targetLevel = parentLevel + 1;
 
-        const targetIndex = this.getTargetIndex(parentIndex + 1, targetLevel);
-
-        this.newIssue(targetIndex, parentId, targetLevel);
+        return {
+          level: targetLevel,
+          index: this.getTargetIndex(parentIndex + 1, targetLevel),
+        };
       },
 
       getIndexForIssue(searchIssue) {
@@ -181,7 +188,8 @@
       },
 
       replaceIssues(issues) {
-        const oldIssues = _keyBy(this.issues, 'id');
+        const oldIssues = _keyBy(this.issues, 'id'),
+          newIssue = oldIssues[undefined];
 
         this.issues = issues.map(issue => {
           const oldIssue = oldIssues[issue.id] || {};
@@ -192,6 +200,12 @@
 
           return issue;
         });
+
+        if (newIssue) {
+          const newIssueLocation = this.newNodeLocation(newIssue.parent_id);
+
+          this.issues.splice(newIssueLocation.index, 0, newIssue);
+        }
       },
 
       newLocalKey() {
