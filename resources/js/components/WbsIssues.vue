@@ -121,6 +121,17 @@
       },
 
       newIssue(index, parent_id, level) {
+        const css_classes = [
+          'issue',
+          'tracker-' + this.defaultTrackerId,
+          'priority-default',
+          'created-by-me'
+        ];
+
+        if (parent_id) {
+          css_classes.push('child');
+        }
+
         const newIssue = {
           estimated_hours: '',
           level,
@@ -128,6 +139,7 @@
           subject: '',
           tracker_id: this.defaultTrackerId,
           local_key: this.newLocalKey(),
+          css_classes: css_classes.join(' '),
         };
 
         if (parent_id) {
