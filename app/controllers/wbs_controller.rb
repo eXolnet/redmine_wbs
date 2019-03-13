@@ -7,6 +7,8 @@ class WbsController < ApplicationController
   before_action :build_default_tracker_id
   accept_api_auth :index
 
+  helper :queries
+
   def index
     respond_to do |format|
       format.html {
@@ -14,6 +16,7 @@ class WbsController < ApplicationController
       }
       format.api  {
         @issues = WbsQuery.new(@project).issues
+        @additional_columns = RedmineWbs.additional_columns
       }
     end
   rescue ActiveRecord::RecordNotFound

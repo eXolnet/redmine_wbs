@@ -7,3 +7,8 @@
   <label><%= l(:label_excluded_tracker) %></label>
   <%= select_tag 'settings[excluded_tracker]', options_for_select(Tracker.all.map{|tr| [tr.name, tr.id]}, RedmineWbs.excluded_tracker_ids), :multiple => true, :size => 10, :style => "width:150px" %>
 </p>
+
+<p>
+  <label><%= l(:label_additional_columns) %></label>
+  <%= select_tag 'settings[additional_columns]', options_for_select(RedmineWbs.additional_columns_available.collect {|column| [column.caption, column.name]}, RedmineWbs.additional_column_ids), :multiple => true, :size => 10, :style => "width:150px" %>
+</p>

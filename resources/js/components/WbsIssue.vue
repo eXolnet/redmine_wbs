@@ -19,6 +19,8 @@
       <td class="total_estimated_hours">
         {{ issue.total_estimated_hours | round(2) }}
       </td>
+
+      <td v-for="column in issue.additionnal_columns" :key="column.name" :class="column.css_classes" v-html="column.content"></td>
     </tr>
 
     <tr class="issue" :class="cssClasses" v-if="isDescriptionShowed">

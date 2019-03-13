@@ -21,6 +21,16 @@ api.array :issues, api_meta(:total_count => @issues.count) do
       api.created_on issue.created_on
       api.updated_on issue.updated_on
       api.closed_on  issue.closed_on
+
+      api.array :additionnal_columns do
+        @additional_columns.each do |column|
+          api.additional_column do
+            api.name         column.name.to_s
+            api.content      column_content(column, issue)
+            api.css_classes  column.css_classes
+          end
+        end
+      end
     end
   end
 end

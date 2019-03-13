@@ -22,18 +22,19 @@
 
     <tbody v-if="issues.length === 0">
       <tr>
-        <td colspan="6">
+        <td :colspan="6 + additionalColumns.length">
           No issues to display. <a href="#" @click.prevent="newIssue(0, null, 0)">Click here</a> to create the first one.
         </td>
       </tr>
     </tbody>
 
     <tfoot v-if="issues.length > 0">
-    <tr>
-      <td colspan="4"></td>
-      <td>{{ total_estimated_hours | round(2) }}</td>
-      <td>{{ total_estimated_hours | round(2) }}</td>
-    </tr>
+      <tr>
+        <td colspan="4"></td>
+        <td>{{ total_estimated_hours | round(2) }}</td>
+        <td>{{ total_estimated_hours | round(2) }}</td>
+        <td v-for="column in additionalColumns"></td>
+      </tr>
     </tfoot>
   </table>
 </template>
@@ -203,10 +204,18 @@
     },
 
     props: {
+      additionalColumns: {
+        type: Array,
+        default() {
+          return [];
+        }
+      },
+
       projectId: {
         type: String,
         required: true,
       },
+
       defaultTrackerId: {
         type: String,
         required: true,
