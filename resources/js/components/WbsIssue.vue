@@ -11,7 +11,7 @@
         <a href="#" class="wbs__description-toggle" @click.prevent="toggleDescription"></a>
       </td>
       <td class="subject">
-        <input ref="subject" type="text" :value="issue.subject" @input="update({ subject: $event.target.value })"/>
+        <input ref="subject" type="text" :value="issue.subject" @input="update({ subject: $event.target.value })" @blur="removeIfNewEmptyIssue"/>
       </td>
       <td class="estimated_hours">
         <input ref="estimated_hours" type="number" :value="issue.estimated_hours" @input="update({ estimated_hours: $event.target.value })" @keydown.alt.up.exact.prevent/>
@@ -173,7 +173,15 @@
         } else {
           this.showDescription();
         }
-      }
+      },
+
+      removeIfNewEmptyIssue() {
+        if (this.issue.id || this.issue.subject) {
+          return;
+        }
+
+        this.$emit('remove');
+      },
     },
 
     mounted() {

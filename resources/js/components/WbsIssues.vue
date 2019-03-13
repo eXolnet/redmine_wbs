@@ -13,6 +13,7 @@
       v-for="(issue, $index) in issues"
       :key="issue.local_key"
       @refreshIssueList="loadIssues"
+      @remove="removeIssue($index)"
       @keydown.enter.exact.native="newNode(issue.parent_id)"
       @keydown.alt.enter.exact.native="newNode(issue.id)"
       @keydown.alt.down.exact.native="navigateDown($index)"
@@ -150,6 +151,10 @@
         this.issues.splice(index, 0, newIssue);
 
         this.$nextTick(() => this.navigateVertically(index));
+      },
+
+      removeIssue(index) {
+        this.issues.splice(index, 1);
       },
 
       navigateDown(index) {
