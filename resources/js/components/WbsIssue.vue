@@ -1,6 +1,6 @@
 <template>
   <tbody @keydown.meta.shift.down.stop.prevent="showDescription" @keydown.meta.shift.up.stop.prevent="hideDescription">
-    <tr class="issue hascontextmenu" :class="cssClasses">
+    <tr class="hascontextmenu" :class="cssClasses">
       <td class="checkbox hide-when-print">
         <input type="checkbox" name="ids[]" :value="issue.id">
       </td>
@@ -64,14 +64,9 @@
       },
 
       cssClasses() {
-        const classes = [];
+        const classes = this.issue.css_classes.split(/\s/);
 
-        classes.push(this.issue.is_closed ? 'closed' : 'opened');
-
-        // TODO: Add children detection to append `parent` class.
-
-        if (this.issue.hasOwnProperty('parent_id')) {
-          classes.push('child');
+        if (this.issue.level > 0) {
           classes.push('idnt');
           classes.push(`idnt-${ this.issue.level }`);
         }

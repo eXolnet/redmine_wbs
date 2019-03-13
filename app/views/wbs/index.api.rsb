@@ -6,6 +6,7 @@ api.array :issues, api_meta(:total_count => @issues.count) do
       api.level       level
       api.parent_id   issue.parent_id
       api.root_id     issue.root_id
+      api.css_classes issue.css_classes
 
       api.subject     issue.subject
       api.description issue.description
