@@ -1,5 +1,5 @@
 <template>
-  <tbody @keydown.meta.shift.down.stop.prevent="showDescription" @keydown.meta.shift.up.stop.prevent="hideDescription">
+  <tbody @keydown.meta.shift.down.stop.prevent="showDescription" @keydown.meta.shift.up.stop.prevent="hideDescription" @keydown.meta.[.stop.prevent="unindentLine" @keydown.meta.].stop.prevent="indentLine">
     <tr class="hascontextmenu" :class="cssClasses">
       <td class="checkbox hide-when-print">
         <input type="checkbox" name="ids[]" :value="issue.id">
@@ -39,6 +39,7 @@
 <script>
   import _debounce from 'lodash/debounce';
   import _isEqual from 'lodash/isEqual';
+  import _omit from 'lodash/omit';
   import _pick from 'lodash/pick';
   import axios from 'axios';
 
@@ -102,8 +103,9 @@
         this.$emit('update', patchedIssue);
       },
 
-      save() {
-        const { issue } = this;
+      save(data = {}) {
+        const issue = Object.assign(this.issue, data);
+
         const { id } = issue;
         const method = id ? 'PUT' : 'POST';
         const url = method === 'PUT' ? `/issues/${id}.json` : '/issues.json';
@@ -117,7 +119,7 @@
             const { issue } = response.data;
 
             if (issue) {
-              this.update({id: response.data.issue.id});
+              this.update(_omit(response.data, COLUMNS_EDITABLE));
             }
 
             this.$emit('refreshIssueList');
@@ -132,6 +134,31 @@
         this.isDescriptionShowed = false;
 
         this.$nextTick(() => this.$refs.subject.focus());
+      },
+
+      indentLine() {
+        const index = this.$parent.getIndexForIssue(this.issue);
+        const previousIssue = this.$parent.getIssueByIndex(index - 1);
+
+        if (! previousIssue) {
+          return;
+        }
+
+        if (previousIssue.level === this.issue.level) {
+          this.save({ parent_issue_id: previousIssue.id });
+        } else if (previousIssue.level === (this.issue.level + 1)) {
+          this.save({ parent_issue_id: previousIssue.parent_id });
+        }
+      },
+
+      unindentLine() {
+        if (! this.issue.parent_id) {
+          return;
+        }
+
+        const parent = this.$parent.getIssueById(this.issue.parent_id);
+
+        this.save({ parent_issue_id: parent.parent_id });
       },
 
       showDescription() {

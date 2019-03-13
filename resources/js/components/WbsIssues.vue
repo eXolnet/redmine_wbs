@@ -96,6 +96,18 @@
         this.newIssue(targetIndex, parentId, targetLevel);
       },
 
+      getIndexForIssue(searchIssue) {
+        return _findIndex(this.issues, issue => issue === searchIssue);
+      },
+
+      getIssueByIndex(index) {
+        return this.issues[index];
+      },
+
+      getIssueById(id) {
+        return this.issues.find(issue => issue.id === id);
+      },
+
       getTargetIndex(fromIndex, minLevel) {
         let targetIndex = fromIndex;
 
