@@ -28,7 +28,7 @@ class WbsControllerTest < ActionController::TestCase
   end
 
   def test_get_index_with_project
-    get :index, :project_id => 'ecookbook'
+    compatible_request :get, :index, :project_id => 'ecookbook'
 
     assert_response :success
   end
