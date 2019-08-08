@@ -1,6 +1,7 @@
 # Redmine WBS
 
 [![Latest Release](https://img.shields.io/github/release/eXolnet/redmine-wbs.svg?style=flat-square)](https://github.com/eXolnet/redmine-wbs/releases)
+![Redmine Compatibility](https://img.shields.io/static/v1?label=redmine&message=3.4.x-4.0.x&color=blue&style=flat-square)
 [![Software License](https://img.shields.io/badge/license-MIT-8469ad.svg?style=flat-square)](LICENSE)
 [![Build Status](https://img.shields.io/travis/eXolnet/redmine_wbs/master.svg?style=flat-square)](https://travis-ci.org/eXolnet/redmine_wbs)
 [![Maintainability](https://api.codeclimate.com/v1/badges/f324ff43e12187b3b8aa/maintainability)](https://codeclimate.com/github/eXolnet/redmine-wbs/maintainability)
