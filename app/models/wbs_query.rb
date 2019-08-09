@@ -5,7 +5,9 @@ class WbsQuery
 
   def issues
     Issue
-      .where(root_id: visible_root_issues)
+      .visible
+      .where(project_id: @project.id)
+      .where.not(id: excluded_issues)
       .order("#{Issue.table_name}.root_id ASC, #{Issue.table_name}.lft ASC")
   end
 
@@ -15,16 +17,29 @@ class WbsQuery
 
   private
 
-  def visible_root_issues
+  def excluded_issues
+    subquery = Issue
+      .visible
+      .where(project_id: @project.id)
+      .where(
+        "#{Issue.table_name}.tracker_id IN (?) OR #{Issue.table_name}.status_id IN (?)",
+        excluded_trackers,
+        RedmineWbs.excluded_status_ids
+      )
+
     Issue
       .select(:id)
       .visible
-      .where("#{Issue.table_name}.root_id = #{Issue.table_name}.id")
       .where(project_id: @project.id)
-      .where.not(tracker_id: valid_trackers)
+      .joins("INNER JOIN (#{subquery.to_sql}) parent")
+      .where("#{Issue.table_name}.root_id = parent.root_id")
+      .where("#{Issue.table_name}.lft >= parent.lft")
+      .where("#{Issue.table_name}.rgt <= parent.rgt")
   end
 
-  def valid_trackers
+  # A tracker is excluded if it's manually excluded or it doesn't have the
+  # field "Estimated Time" enabled
+  def excluded_trackers
     Tracker.select(:id)
       .where(
         "#{Tracker.table_name}.id IN (?) OR #{Tracker.table_name}.fields_bits & ?",

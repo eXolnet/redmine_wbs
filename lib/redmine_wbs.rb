@@ -7,7 +7,11 @@ module RedmineWbs
       end
 
     def excluded_tracker_ids
-      Setting.plugin_redmine_wbs['excluded_tracker'] || []
+      Setting.plugin_redmine_wbs['excluded_trackers'] || []
+    end
+
+    def excluded_status_ids
+      Setting.plugin_redmine_wbs['excluded_statuses'] || []
     end
 
     def additional_columns_available

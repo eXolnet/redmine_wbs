@@ -4,8 +4,13 @@
 </p>
 
 <p>
-  <label><%= l(:label_excluded_tracker) %></label>
-  <%= select_tag 'settings[excluded_tracker]', options_for_select(Tracker.all.map{|tr| [tr.name, tr.id]}, RedmineWbs.excluded_tracker_ids), :multiple => true, :size => 10, :style => "width:150px" %>
+  <label><%= l(:label_excluded_trackers) %></label>
+  <%= select_tag 'settings[excluded_trackers]', options_for_select(Tracker.all.map{|tr| [tr.name, tr.id]}, RedmineWbs.excluded_tracker_ids), :multiple => true, :size => 10, :style => "width:150px" %>
+</p>
+
+<p>
+  <label><%= l(:label_excluded_statuses) %></label>
+  <%= select_tag 'settings[excluded_statuses]', options_for_select(IssueStatus.all.map{|tr| [tr.name, tr.id]}, RedmineWbs.excluded_status_ids), :multiple => true, :size => 10, :style => "width:150px" %>
 </p>
 
 <p>
