@@ -1,6 +1,6 @@
 require 'redmine'
 
-WBS_VERSION_NUMBER = '1.1.0'
+WBS_VERSION_NUMBER = '1.1.1'
 
 Redmine::Plugin.register :redmine_wbs do
   name 'WBS'
