@@ -2,6 +2,12 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v1.1.2
+
+### Fixed
+
+* Update plugin source url
+
 ## v1.1.1
 
 ### Fixed
