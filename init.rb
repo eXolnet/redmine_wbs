@@ -7,7 +7,7 @@ Redmine::Plugin.register :redmine_wbs do
   author 'eXolnet'
   description 'Display a WBS view of a project’s issues.'
   version WBS_VERSION_NUMBER
-  url 'https://github.com/eXolnet/redmine-wbs'
+  url 'https://github.com/eXolnet/redmine_wbs'
   author_url 'https://www.exolnet.com'
 
   requires_redmine :version_or_higher => '3.4'
