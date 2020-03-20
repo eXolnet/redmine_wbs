@@ -20,6 +20,8 @@ env:
   - REDMINE_VER=3.4.0 DB=postgresql
 
 before_install:
+  - gem uninstall -v '>= 2' -i $(rvm gemdir)@global -ax bundler || true
+  - gem install bundler -v '< 2'
   - export PLUGIN_NAME=redmine_wbs
   - export REDMINE_PATH=$HOME/redmine
   - export BUNDLE_GEMFILE=$REDMINE_PATH/Gemfile
