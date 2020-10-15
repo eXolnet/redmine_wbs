@@ -2,6 +2,12 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v1.2.0
+
+* Add support for Redmine 4.1
+* Update Yarn dependencies
+* Use Github Actions instead of Travis to test the project
+
 ## v1.1.2
 
 ### Fixed
