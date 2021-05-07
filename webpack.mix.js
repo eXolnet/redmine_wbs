@@ -15,5 +15,8 @@ mix
   .js('resources/js/wbs.js', 'assets/javascripts')
   .sass('resources/sass/wbs.scss', 'assets/stylesheets')
   .options({
+    clearConsole: false,
     processCssUrls: false,
-  });
+  })
+  .vue()
+  .sourceMaps(false, 'source-map');
