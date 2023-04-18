@@ -24,3 +24,19 @@ jobs:
           redmine_version: ${{ matrix.redmine }}
           ruby_version: ${{ matrix.ruby }}
           database: ${{ matrix.db }}
+
+  assets:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Yarn
+        run: |
+          corepack enable yarn
+          corepack prepare yarn@stable --activate
+
+      - name: Install and build assets
+        run: |
+          yarn install
+          yarn run production

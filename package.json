@@ -1,23 +1,25 @@
 {
   "private": true,
   "scripts": {
-    "dev": "npm run development",
+    "dev": "yarn run development",
     "development": "mix",
     "watch": "mix watch",
     "watch-poll": "mix watch -- --watch-options-poll=1000",
     "hot": "mix watch --hot",
-    "prod": "npm run production",
+    "prod": "yarn run production",
     "production": "mix --production"
   },
   "devDependencies": {
     "axios": "^0.21.2",
     "laravel-mix": "^6.0.6",
     "lodash": "^4.17.19",
+    "node-gyp": "^9.3.1",
     "postcss": "^8.1",
     "sass": "^1.17.3",
     "sass-loader": "^10.0.3",
     "vue": "^2.6.10",
     "vue-loader": "^15.9.5",
-    "vue-template-compiler": "^2.6.10"
+    "vue-template-compiler": "^2.6.10",
+    "webpack": "^5.79.0"
   }
 }
