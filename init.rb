@@ -10,7 +10,7 @@ Redmine::Plugin.register :redmine_wbs do
   url 'https://github.com/eXolnet/redmine_wbs'
   author_url 'https://www.exolnet.com'
 
-  requires_redmine :version_or_higher => '3.4'
+  requires_redmine :version_or_higher => '4.2'
 
   settings :default => {},
            :partial => 'settings/wbs/general'
@@ -22,4 +22,4 @@ Redmine::Plugin.register :redmine_wbs do
   end
 end
 
-require 'redmine_wbs'
+require File.dirname(__FILE__) + '/lib/redmine_wbs'
