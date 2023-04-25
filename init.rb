@@ -22,4 +22,4 @@ Redmine::Plugin.register :redmine_wbs do
   end
 end
 
-require 'redmine_wbs'
+require File.dirname(__FILE__) + '/lib/redmine_wbs'
