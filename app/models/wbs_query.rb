@@ -31,8 +31,7 @@ class WbsQuery
       .select(:id)
       .visible
       .where(project_id: @project.id)
-      .joins("INNER JOIN (#{subquery.to_sql}) parent")
-      .where("#{Issue.table_name}.root_id = parent.root_id")
+      .joins("INNER JOIN (#{subquery.to_sql}) parent on #{Issue.table_name}.root_id = parent.root_id")
       .where("#{Issue.table_name}.lft >= parent.lft")
       .where("#{Issue.table_name}.rgt <= parent.rgt")
   end
@@ -42,7 +41,7 @@ class WbsQuery
   def excluded_trackers
     Tracker.select(:id)
       .where(
-        "#{Tracker.table_name}.id IN (?) OR #{Tracker.table_name}.fields_bits & ?",
+        "#{Tracker.table_name}.id IN (?) OR (#{Tracker.table_name}.fields_bits & ?) != 0",
         RedmineWbs.excluded_tracker_ids,
         RedmineWbs.required_core_field_bits
       )
