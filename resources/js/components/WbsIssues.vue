@@ -6,8 +6,7 @@
       </tr>
     </thead>
 
-    <tbody
-      vue:is="wbs-issue"
+    <wbs-issue
       :class="[$index % 2 === 0 ? 'odd' : 'even']"
       :issue.sync="issues[$index]"
       v-for="(issue, $index) in issues"
@@ -18,7 +17,7 @@
       @keydown.alt.enter.exact.native="newNode(issue.id)"
       @keydown.alt.down.exact.native="navigateDown($index)"
       @keydown.alt.up.exact.native="navigateUp($index)"
-    ></tbody>
+    ></wbs-issue>
 
     <tbody v-if="issues.length === 0">
       <tr>
