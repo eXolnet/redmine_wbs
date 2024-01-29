@@ -1,10 +1,9 @@
 import './bootstrap';
-import Vue from 'vue';
+import { createApp } from 'vue';
 import WbsIssues from './components/WbsIssues';
 
-new Vue({
-  el: '#wbs-list',
+createApp({
   components: {
     WbsIssues,
-  }
-});
+  },
+}).mount('#wbs-list');
