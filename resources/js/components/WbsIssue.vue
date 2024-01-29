@@ -51,6 +51,8 @@
   export default defineComponent({
     name: 'WbsIssue',
 
+    emits: ['update:issue'],
+
     model: {
       prop: 'issue',
       event: 'update:issue'
