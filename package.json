@@ -13,7 +13,7 @@
     "axios": "^1.6.7",
     "laravel-mix": "^6.0.6",
     "lodash": "^4.17.19",
-    "node-gyp": "^9.3.1",
+    "node-gyp": "^10.0.1",
     "postcss": "^8.4",
     "sass": "^1.70.0",
     "sass-loader": "^14.0.0",
