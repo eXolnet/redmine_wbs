@@ -20,6 +20,6 @@
     "vue": "^2.6.10",
     "vue-loader": "^15.9.5",
     "vue-template-compiler": "^2.6.10",
-    "webpack": "^5.79.0"
+    "webpack": "^5.90.0"
   }
 }
