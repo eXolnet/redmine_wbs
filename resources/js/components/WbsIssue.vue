@@ -44,10 +44,11 @@
   import _omit from 'lodash/omit';
   import _pick from 'lodash/pick';
   import axios from 'axios';
+  import { defineComponent } from 'vue';
 
   import { COLUMNS_EDITABLE } from '../constants';
 
-  export default {
+  export default defineComponent({
     name: 'WbsIssue',
 
     model: {
@@ -219,5 +220,5 @@
         deep: true
       },
     },
-  };
+  });
 </script>

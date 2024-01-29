@@ -45,13 +45,14 @@
   import _pick from 'lodash/pick';
   import _sumBy from 'lodash/sumBy';
   import axios from 'axios';
+  import { defineComponent } from 'vue';
   import WbsIssue from './WbsIssue';
 
   import { COLUMNS_EDITABLE } from '../constants';
 
   let localKeyAutoincrement = 1;
 
-  export default {
+  export default defineComponent({
     name: 'WbsIssues',
 
     components: {
@@ -235,5 +236,5 @@
         required: true,
       }
     },
-  };
+  });
 </script>
