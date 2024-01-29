@@ -31,8 +31,8 @@
     <tfoot v-if="issues.length > 0">
       <tr>
         <td colspan="4"></td>
-        <td>{{ total_estimated_hours | round(2) }}</td>
-        <td>{{ total_estimated_hours | round(2) }}</td>
+        <td>{{ round(total_estimated_hours, 2) }}</td>
+        <td>{{ round(total_estimated_hours, 2) }}</td>
         <td v-for="column in additionalColumns"></td>
       </tr>
     </tfoot>
@@ -71,16 +71,6 @@
       return {
         issues: [],
       };
-    },
-
-    filters: {
-      round(value, precision = 0) {
-        if (typeof value !== 'number') {
-          return null;
-        }
-
-        return value.toFixed(precision);
-      },
     },
 
     methods: {
@@ -211,6 +201,10 @@
 
       newLocalKey() {
         return localKeyAutoincrement++;
+      },
+
+      round(value, precision) {
+        return typeof value === 'number' ? value.toFixed(precision) : null;
       },
     },
 
