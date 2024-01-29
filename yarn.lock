@@ -5291,6 +5291,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"nanoid@npm:^3.3.7":
+  version: 3.3.7
+  resolution: "nanoid@npm:3.3.7"
+  bin:
+    nanoid: bin/nanoid.cjs
+  checksum: d36c427e530713e4ac6567d488b489a36582ef89da1d6d4e3b87eded11eb10d7042a877958c6f104929809b2ab0bafa17652b076cdf84324aa75b30b722204f2
+  languageName: node
+  linkType: hard
+
 "negotiator@npm:0.6.3, negotiator@npm:^0.6.3":
   version: 0.6.3
   resolution: "negotiator@npm:0.6.3"
@@ -6148,7 +6157,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.1, postcss@npm:^8.2.15, postcss@npm:^8.4.14":
+"postcss@npm:^8.2.15, postcss@npm:^8.4.14":
   version: 8.4.19
   resolution: "postcss@npm:8.4.19"
   dependencies:
@@ -6156,6 +6165,17 @@ __metadata:
     picocolors: ^1.0.0
     source-map-js: ^1.0.2
   checksum: 62782723a385f92b7525f66d29614624de7c5643855423db3a5efd9287e677650300192749adddbbb6734cea9b1d5f5fd4f6ea00ca3f9a95dbbb88f835f5ca64
+  languageName: node
+  linkType: hard
+
+"postcss@npm:^8.4":
+  version: 8.4.33
+  resolution: "postcss@npm:8.4.33"
+  dependencies:
+    nanoid: ^3.3.7
+    picocolors: ^1.0.0
+    source-map-js: ^1.0.2
+  checksum: 6f98b2af4b76632a3de20c4f47bf0e984a1ce1a531cf11adcb0b1d63a6cbda0aae4165e578b66c32ca4879038e3eaad386a6be725a8fb4429c78e3c1ab858fe9
   languageName: node
   linkType: hard
 
@@ -6575,7 +6595,7 @@ __metadata:
     laravel-mix: ^6.0.6
     lodash: ^4.17.19
     node-gyp: ^9.3.1
-    postcss: ^8.1
+    postcss: ^8.4
     sass: ^1.17.3
     sass-loader: ^10.0.3
     vue: ^2.6.10
