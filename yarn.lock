@@ -4750,7 +4750,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"klona@npm:^2.0.4, klona@npm:^2.0.5":
+"klona@npm:^2.0.5":
   version: 2.0.5
   resolution: "klona@npm:2.0.5"
   checksum: 8c976126ea252b766e648a4866e1bccff9d3b08432474ad80c559f6c7265cf7caede2498d463754d8c88c4759895edd8210c85c0d3155e6aae4968362889466f
@@ -6596,8 +6596,8 @@ __metadata:
     lodash: ^4.17.19
     node-gyp: ^9.3.1
     postcss: ^8.4
-    sass: ^1.17.3
-    sass-loader: ^10.0.3
+    sass: ^1.70.0
+    sass-loader: ^14.0.0
     vue: ^2.6.10
     vue-loader: ^15.9.5
     vue-template-compiler: ^2.6.10
@@ -6635,41 +6635,37 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass-loader@npm:^10.0.3":
-  version: 10.4.1
-  resolution: "sass-loader@npm:10.4.1"
+"sass-loader@npm:^14.0.0":
+  version: 14.0.0
+  resolution: "sass-loader@npm:14.0.0"
   dependencies:
-    klona: ^2.0.4
-    loader-utils: ^2.0.0
     neo-async: ^2.6.2
-    schema-utils: ^3.0.0
-    semver: ^7.3.2
   peerDependencies:
-    fibers: ">= 3.1.0"
-    node-sass: ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0
+    node-sass: ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0 || ^9.0.0
     sass: ^1.3.0
-    webpack: ^4.36.0 || ^5.0.0
+    sass-embedded: "*"
+    webpack: ^5.0.0
   peerDependenciesMeta:
-    fibers:
-      optional: true
     node-sass:
       optional: true
     sass:
       optional: true
-  checksum: df9a65a62247e95305299ccbdf212cffdcdb69490928aecdf4f3dcf539b5302ed7cbffa663f83c5fc3ce0864decf84257a9ce484f6df4cb4426feeb88445dcd0
+    sass-embedded:
+      optional: true
+  checksum: 3e556f0f6eaba39958511eee0fcf73903a663d43da84f24c59cfa9d0f4d83e57007e040a79579ac5301ddb395fe6a49a3e494a2af1bc14ac69d38caa29221631
   languageName: node
   linkType: hard
 
-"sass@npm:^1.17.3":
-  version: 1.56.1
-  resolution: "sass@npm:1.56.1"
+"sass@npm:^1.70.0":
+  version: 1.70.0
+  resolution: "sass@npm:1.70.0"
   dependencies:
     chokidar: ">=3.0.0 <4.0.0"
     immutable: ^4.0.0
     source-map-js: ">=0.6.2 <2.0.0"
   bin:
     sass: sass.js
-  checksum: 78e693e5992b149574c95d5adfe39ca3e5b97d80befa11191a20d1daa41fe201a98ac099beab726cd3095e2d2e7991a2c408ba0fcc3fa9f525879de7eee18dad
+  checksum: fd1b622cf9b7fa699a03ec634611997552ece45eb98ac365fef22f42bdcb8ed63b326b64173379c966830c8551ae801e44e4a00d2de16fdadda2dc8f35400bbb
   languageName: node
   linkType: hard
 
