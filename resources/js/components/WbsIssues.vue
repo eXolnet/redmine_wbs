@@ -7,9 +7,9 @@
     </thead>
 
     <tbody
-      is="wbs-issue"
-      v-model="issues[$index]"
+      vue:is="wbs-issue"
       :class="[$index % 2 === 0 ? 'odd' : 'even']"
+      :issue.sync="issues[$index]"
       v-for="(issue, $index) in issues"
       :key="issue.local_key"
       @refreshIssueList="loadIssues"

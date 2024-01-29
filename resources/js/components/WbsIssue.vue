@@ -53,7 +53,7 @@
 
     model: {
       prop: 'issue',
-      event: 'update'
+      event: 'update:issue'
     },
 
     computed: {
@@ -103,7 +103,7 @@
       update(patch) {
         const patchedIssue = Object.assign({}, this.issue, patch);
 
-        this.$emit('update', patchedIssue);
+        this.$emit('update:issue', patchedIssue);
       },
 
       save(data = {}) {
