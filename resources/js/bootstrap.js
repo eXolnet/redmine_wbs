@@ -37,6 +37,6 @@ if (userApiKey) {
 /**
  * Prevent Redmine to display a warning when editing a textarea
  */
-$(window).load(() => {
+window.addEventListener('load', () => {
   window.onbeforeunload = null;
 });

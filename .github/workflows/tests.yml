@@ -31,12 +31,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Setup Yarn
-        run: |
-          corepack enable yarn
-          corepack prepare yarn@stable --activate
-
       - name: Install and build assets
         run: |
-          yarn install
-          yarn run production
+          npm install
+          npm run production

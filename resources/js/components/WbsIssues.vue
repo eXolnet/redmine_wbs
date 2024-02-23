@@ -6,19 +6,18 @@
       </tr>
     </thead>
 
-    <tbody
-      is="wbs-issue"
-      v-model="issues[$index]"
-      :class="[$index % 2 === 0 ? 'odd' : 'even']"
+    <wbs-issue
       v-for="(issue, $index) in issues"
       :key="issue.local_key"
+      v-model:issue="issues[$index]"  
+      :class="[$index % 2 === 0 ? 'odd' : 'even']"
       @refreshIssueList="loadIssues"
       @remove="removeIssue($index)"
-      @keydown.enter.exact.native="newNode(issue.parent_id)"
-      @keydown.alt.enter.exact.native="newNode(issue.id)"
-      @keydown.alt.down.exact.native="navigateDown($index)"
-      @keydown.alt.up.exact.native="navigateUp($index)"
-    ></tbody>
+      @keydown.enter.exact="newNode(issue.parent_id)"
+      @keydown.alt.enter.exact="newNode(issue.id)"
+      @keydown.alt.down.exact="navigateDown($index)"
+      @keydown.alt.up.exact="navigateUp($index)"
+    ></wbs-issue>
 
     <tbody v-if="issues.length === 0">
       <tr>
@@ -31,8 +30,8 @@
     <tfoot v-if="issues.length > 0">
       <tr>
         <td colspan="4"></td>
-        <td>{{ total_estimated_hours | round(2) }}</td>
-        <td>{{ total_estimated_hours | round(2) }}</td>
+        <td>{{ round(total_estimated_hours, 2) }}</td>
+        <td>{{ round(total_estimated_hours, 2) }}</td>
         <td v-for="column in additionalColumns"></td>
       </tr>
     </tfoot>
@@ -45,13 +44,14 @@
   import _pick from 'lodash/pick';
   import _sumBy from 'lodash/sumBy';
   import axios from 'axios';
+  import { defineComponent } from 'vue';
   import WbsIssue from './WbsIssue';
 
   import { COLUMNS_EDITABLE } from '../constants';
 
   let localKeyAutoincrement = 1;
 
-  export default {
+  export default defineComponent({
     name: 'WbsIssues',
 
     components: {
@@ -70,16 +70,6 @@
       return {
         issues: [],
       };
-    },
-
-    filters: {
-      round(value, precision = 0) {
-        if (typeof value !== 'number') {
-          return null;
-        }
-
-        return value.toFixed(precision);
-      },
     },
 
     methods: {
@@ -211,6 +201,10 @@
       newLocalKey() {
         return localKeyAutoincrement++;
       },
+
+      round(value, precision) {
+        return typeof value === 'number' ? value.toFixed(precision) : null;
+      },
     },
 
     mounted() {
@@ -235,5 +229,5 @@
         required: true,
       }
     },
-  };
+  });
 </script>

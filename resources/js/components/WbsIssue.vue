@@ -17,7 +17,7 @@
         <input ref="estimated_hours" type="number" :value="issue.estimated_hours" @input="update({ estimated_hours: $event.target.value })" @keydown.alt.up.exact.prevent/>
       </td>
       <td class="total_estimated_hours">
-        {{ issue.total_estimated_hours | round(2) }}
+        {{ round(issue.total_estimated_hours, 2) }}
       </td>
 
       <td v-for="column in issue.additionnal_columns" :key="column.name" :class="column.css_classes" v-html="column.content"></td>
@@ -44,15 +44,18 @@
   import _omit from 'lodash/omit';
   import _pick from 'lodash/pick';
   import axios from 'axios';
+  import { defineComponent } from 'vue';
 
   import { COLUMNS_EDITABLE } from '../constants';
 
-  export default {
+  export default defineComponent({
     name: 'WbsIssue',
+
+    emits: ['update:issue'],
 
     model: {
       prop: 'issue',
-      event: 'update'
+      event: 'update:issue'
     },
 
     computed: {
@@ -88,21 +91,11 @@
       }
     },
 
-    filters: {
-      round(value, precision = 0) {
-          if (typeof value !== 'number') {
-            return null;
-          }
-
-          return value.toFixed(precision);
-      },
-    },
-
     methods: {
       update(patch) {
         const patchedIssue = Object.assign({}, this.issue, patch);
 
-        this.$emit('update', patchedIssue);
+        this.$emit('update:issue', patchedIssue);
       },
 
       save(data = {}) {
@@ -187,6 +180,10 @@
 
         this.$emit('remove');
       },
+
+      round(value, precision) {
+        return typeof value === 'number' ? value.toFixed(precision) : null;
+      },
     },
 
     mounted() {
@@ -219,5 +216,5 @@
         deep: true
       },
     },
-  };
+  });
 </script>
