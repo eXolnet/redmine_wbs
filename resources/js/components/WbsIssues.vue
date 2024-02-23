@@ -7,10 +7,10 @@
     </thead>
 
     <wbs-issue
-      :class="[$index % 2 === 0 ? 'odd' : 'even']"
-      :issue.sync="issues[$index]"
       v-for="(issue, $index) in issues"
       :key="issue.local_key"
+      v-model:issue="issues[$index]"  
+      :class="[$index % 2 === 0 ? 'odd' : 'even']"
       @refreshIssueList="loadIssues"
       @remove="removeIssue($index)"
       @keydown.enter.exact="newNode(issue.parent_id)"
