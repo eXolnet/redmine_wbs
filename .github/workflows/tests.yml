@@ -18,7 +18,7 @@ jobs:
 
     steps:
       - name: Execute tests
-        uses: eXolnet/action-redmine-plugin@v1
+        uses: eXolnet/action-redmine-plugin@v2
         with:
           plugin_name: "redmine_wbs"
           redmine_version: "${{ matrix.redmine }}"
@@ -29,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Install and build assets
         run: |
