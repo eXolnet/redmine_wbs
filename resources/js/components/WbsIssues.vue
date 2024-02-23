@@ -13,10 +13,10 @@
       :key="issue.local_key"
       @refreshIssueList="loadIssues"
       @remove="removeIssue($index)"
-      @keydown.enter.exact.native="newNode(issue.parent_id)"
-      @keydown.alt.enter.exact.native="newNode(issue.id)"
-      @keydown.alt.down.exact.native="navigateDown($index)"
-      @keydown.alt.up.exact.native="navigateUp($index)"
+      @keydown.enter.exact="newNode(issue.parent_id)"
+      @keydown.alt.enter.exact="newNode(issue.id)"
+      @keydown.alt.down.exact="navigateDown($index)"
+      @keydown.alt.up.exact="navigateUp($index)"
     ></wbs-issue>
 
     <tbody v-if="issues.length === 0">
