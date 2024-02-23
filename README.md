@@ -1,7 +1,7 @@
 # Redmine WBS
 
 [![Latest Release](https://img.shields.io/github/release/eXolnet/redmine-wbs.svg?style=flat-square)](https://github.com/eXolnet/redmine-wbs/releases)
-![Redmine Compatibility](https://img.shields.io/static/v1?label=redmine&message=4.2.x-5.0.x&color=blue&style=flat-square)
+![Redmine Compatibility](https://img.shields.io/static/v1?label=redmine&message=4.2.x-5.1.x&color=blue&style=flat-square)
 [![Software License](https://img.shields.io/badge/license-MIT-8469ad.svg?style=flat-square)](LICENSE)
 [![Build Status](https://img.shields.io/github/actions/workflow/status/eXolnet/redmine_wbs/tests.yml?label=tests&style=flat-square)](https://github.com/eXolnet/redmine_wbs/actions?query=workflow%3Atests)
 [![Maintainability](https://api.codeclimate.com/v1/badges/f324ff43e12187b3b8aa/maintainability)](https://codeclimate.com/github/eXolnet/redmine-wbs/maintainability)
@@ -10,7 +10,7 @@ Display a WBS view of a project’s issues.
 
 ## Compatibility
 
-This plugin version is compatible only with Redmine 3.4 and later.
+This plugin version is compatible only with Redmine 4.2 and later.
 
 ## Installation
 
