@@ -7,12 +7,3 @@
 Gemfile.lock
 mix-manifest.json
 Thumbs.db
-
-# Yarn
-.pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/sdks
-!.yarn/versions

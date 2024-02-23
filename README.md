@@ -19,8 +19,8 @@ This plugin version is compatible only with Redmine 3.4 and later.
 2. In the directory `#{REDMINE_ROOT}/plugins/redmine_pulls`, compile the assets:
 
     ```bash
-    yarn install
-    yarn production
+    npm install
+    npm run production
     ```
 
 2. Restart Redmine.
