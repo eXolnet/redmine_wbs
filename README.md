@@ -16,7 +16,7 @@ This plugin version is compatible only with Redmine 4.2 and later.
 
 1. Download the .ZIP archive, extract files and copy the plugin directory to `#{REDMINE_ROOT}/plugins/redmine_wbs`.
 
-2. In the directory `#{REDMINE_ROOT}/plugins/redmine_pulls`, compile the assets:
+2. In the directory `#{REDMINE_ROOT}/plugins/redmine_wbs`, compile the assets:
 
     ```bash
     npm install
