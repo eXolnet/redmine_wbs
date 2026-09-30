@@ -32,4 +32,14 @@ class WbsControllerTest < ActionController::TestCase
 
     assert_response :success
   end
+
+  def test_get_index_with_project_as_json
+    @request.session[:user_id] = nil
+    @request.headers['X-Redmine-API-Key'] = User.find(1).api_key
+
+    compatible_request :get, :index, :project_id => 'ecookbook', :format => 'json'
+
+    assert_response :success
+    assert_equal Project.find(1).issues.count, JSON.parse(response.body)['total_count']
+  end
 end
