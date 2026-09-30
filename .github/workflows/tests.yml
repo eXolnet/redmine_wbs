@@ -39,4 +39,4 @@ jobs:
       - name: Install and build assets
         run: |
           npm install
-          npm run production
+          npm run build

@@ -45,7 +45,7 @@
   import _sumBy from 'lodash/sumBy';
   import axios from 'axios';
   import { defineComponent } from 'vue';
-  import WbsIssue from './WbsIssue';
+  import WbsIssue from './WbsIssue.vue';
 
   import { COLUMNS_EDITABLE } from '../constants';
 
