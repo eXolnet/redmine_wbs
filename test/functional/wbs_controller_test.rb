@@ -245,6 +245,24 @@ class WbsControllerTest < Redmine::ControllerTest
     assert_equal [], items[1]['additionnal_columns']
   end
 
+  def test_get_index_ignores_unknown_additional_columns
+    with_settings :plugin_redmine_wbs => { 'additional_columns' => ['status', 'removed_custom_field'] } do
+      get_index :project_id => 'ecookbook'
+    end
+
+    assert_response :success
+    assert_equal ['Status'], JSON.parse(css_select('wbs-issues').first[':additional-columns'])
+  end
+
+  def test_get_index_as_json_ignores_unknown_additional_columns
+    items = nil
+    with_settings :plugin_redmine_wbs => { 'additional_columns' => ['cf_999', 'status'] } do
+      items = get_json_issues
+    end
+
+    assert_equal ['status'], items[1]['additionnal_columns'].map { |column| column['name'] }
+  end
+
   private
 
   def get_index(params, options = {})

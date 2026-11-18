@@ -30,7 +30,7 @@ module RedmineWbs
         hash
       end
 
-      self.additional_column_ids.map { |column| columns[column] }
+      self.additional_column_ids.map { |column| columns[column] }.compact
     end
 
     def required_core_field_bits
